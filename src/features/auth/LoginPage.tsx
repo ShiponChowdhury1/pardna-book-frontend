@@ -62,7 +62,7 @@ export default function LoginPage() {
       </div>
 
       <form onSubmit={handleSubmit} noValidate>
-        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-[var(--shadow-lg)] border border-gray-100 space-y-7">
+        <div className="bg-white rounded-2xl p-4 sm:p-4 shadow-[var(--shadow-lg)] border border-gray-100 space-y-4">
 
           {/* Email or phone */}
           <div>
@@ -88,7 +88,7 @@ export default function LoginPage() {
 
           {/* Password */}
           <div>
-            <div className="flex items-baseline justify-between mb-3">
+            <div className="flex items-center justify-between mb-6">
               <label 
                 htmlFor="login-password"
                 className="text-sm font-semibold text-[var(--color-dark)]"

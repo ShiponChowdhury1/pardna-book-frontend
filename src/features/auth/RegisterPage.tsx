@@ -81,13 +81,13 @@ export default function RegisterPage() {
       </div>
 
       <form onSubmit={handleSubmit} noValidate>
-        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-[var(--shadow-lg)] border border-gray-100 space-y-7">
+        <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-[var(--shadow-lg)] border border-gray-100 space-y-4">
           {/* First + Last Name */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label 
+              <label
                 htmlFor="first-name"
-                className="block text-sm font-semibold text-[var(--color-dark)] mb-3"
+                className="block text-sm font-semibold text-[var(--color-dark)] mb-6"
               >
                 First name
               </label>
@@ -104,9 +104,9 @@ export default function RegisterPage() {
               )}
             </div>
             <div>
-              <label 
+              <label
                 htmlFor="last-name"
-                className="block text-sm font-semibold text-[var(--color-dark)] mb-3"
+                className="block text-sm font-semibold text-[var(--color-dark)] mb-6"
               >
                 Last name
               </label>
@@ -126,9 +126,9 @@ export default function RegisterPage() {
 
           {/* Username */}
           <div>
-            <label 
+            <label
               htmlFor="username"
-              className="block text-sm font-semibold text-[var(--color-dark)] mb-3"
+              className="block text-sm font-semibold text-[var(--color-dark)] mb-6"
             >
               Username{' '}
               <span className="text-[var(--color-primary)] font-normal text-xs">(optional)</span>
@@ -145,9 +145,9 @@ export default function RegisterPage() {
 
           {/* Email */}
           <div>
-            <label 
+            <label
               htmlFor="email"
-              className="block text-sm font-semibold text-[var(--color-dark)] mb-3"
+              className="block text-sm font-semibold text-[var(--color-dark)] mb-6"
             >
               Email
             </label>
@@ -166,9 +166,9 @@ export default function RegisterPage() {
 
           {/* Phone */}
           <div>
-            <label 
+            <label
               htmlFor="phone"
-              className="block text-sm font-semibold text-[var(--color-dark)] mb-3"
+              className="block text-sm font-semibold text-[var(--color-dark)] mb-6"
             >
               Phone number
             </label>
@@ -187,9 +187,9 @@ export default function RegisterPage() {
 
           {/* Password */}
           <div>
-            <label 
+            <label
               htmlFor="password"
-              className="block text-sm font-semibold text-[var(--color-dark)] mb-3"
+              className="block text-sm font-semibold text-[var(--color-dark)] mb-6"
             >
               Password
             </label>
@@ -227,11 +227,10 @@ export default function RegisterPage() {
                 />
                 <div
                   onClick={() => set('agreed', !form.agreed)}
-                  className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-200 cursor-pointer ${
-                    form.agreed
+                  className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-200 cursor-pointer ${form.agreed
                       ? 'bg-[var(--color-primary)] border-[var(--color-primary)]'
                       : 'border-[var(--color-gray-300)] bg-white hover:border-[var(--color-primary)]'
-                  }`}
+                    }`}
                 >
                   {form.agreed && (
                     <svg width="11" height="9" viewBox="0 0 11 9" fill="none">

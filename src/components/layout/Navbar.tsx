@@ -1,0 +1,101 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+export default function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  return (
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100"
+      id="navbar"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link to="/home" className="flex items-center gap-2 no-underline">
+            <svg width="32" height="32" viewBox="0 0 52 52" fill="none">
+              <path
+                d="M26 4C13.85 4 4 13.85 4 26s9.85 22 22 22"
+                stroke="url(#nav-grad)"
+                strokeWidth="5"
+                strokeLinecap="round"
+                fill="none"
+              />
+              <defs>
+                <linearGradient id="nav-grad" x1="4" y1="26" x2="26" y2="48">
+                  <stop offset="0%" stopColor="#8B5CF6" />
+                  <stop offset="100%" stopColor="#6C2BD9" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <span className="text-xl font-bold text-[var(--color-dark)]" style={{ fontFamily: 'var(--font-heading)' }}>
+              PardnaBook
+            </span>
+          </Link>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-8">
+            <a href="#features" className="text-sm font-medium text-[var(--color-gray-500)] hover:text-[var(--color-primary)] transition-colors no-underline">
+              Features
+            </a>
+            <a href="#how-it-works" className="text-sm font-medium text-[var(--color-gray-500)] hover:text-[var(--color-primary)] transition-colors no-underline">
+              How it Works
+            </a>
+            <a href="#testimonials" className="text-sm font-medium text-[var(--color-gray-500)] hover:text-[var(--color-primary)] transition-colors no-underline">
+              Trust
+            </a>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="hidden md:flex items-center gap-4">
+            <Link
+              to="/auth/login"
+              className="text-sm font-medium text-[var(--color-gray-500)] hover:text-[var(--color-primary)] transition-colors no-underline"
+            >
+              Login
+            </Link>
+            <Link
+              to="/auth/login"
+              className="px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] rounded-lg hover:shadow-lg hover:shadow-purple-500/25 transition-all no-underline"
+            >
+              Get Started
+            </Link>
+          </div>
+
+          {/* Mobile Toggle */}
+          <button
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              {mobileOpen ? (
+                <path d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {mobileOpen && (
+          <div className="md:hidden border-t border-gray-100 py-4 animate-fade-in-down">
+            <div className="flex flex-col gap-3">
+              <a href="#features" className="text-sm font-medium text-[var(--color-gray-500)] hover:text-[var(--color-primary)] px-2 py-2 no-underline" onClick={() => setMobileOpen(false)}>Features</a>
+              <a href="#how-it-works" className="text-sm font-medium text-[var(--color-gray-500)] hover:text-[var(--color-primary)] px-2 py-2 no-underline" onClick={() => setMobileOpen(false)}>How it Works</a>
+              <a href="#testimonials" className="text-sm font-medium text-[var(--color-gray-500)] hover:text-[var(--color-primary)] px-2 py-2 no-underline" onClick={() => setMobileOpen(false)}>Trust</a>
+              <Link
+                to="/auth/login"
+                className="text-sm font-medium text-white bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] px-5 py-2.5 rounded-lg text-center no-underline"
+                onClick={() => setMobileOpen(false)}
+              >
+                Get Started
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+}

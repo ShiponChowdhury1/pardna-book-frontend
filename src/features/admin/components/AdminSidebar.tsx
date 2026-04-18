@@ -98,8 +98,10 @@ interface AdminSidebarProps {
 
 export default function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps) {
   const navigate = useNavigate();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   return (
+    <>
     <aside
       id="admin-sidebar"
       className="fixed left-0 top-0 bottom-0 flex flex-col bg-[var(--sidebar-bg)] text-white z-40 transition-all duration-300 ease-in-out"
@@ -164,25 +166,40 @@ export default function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps)
                 title={collapsed ? item.label : undefined}
                 className={({ isActive }) =>
                   cn(
-                    'flex items-center rounded-[10px] text-sm font-medium transition-all duration-200 no-underline overflow-hidden',
+                    'group relative flex items-center rounded-xl text-sm font-medium transition-all duration-300 no-underline overflow-hidden',
                     collapsed ? 'justify-center px-0 py-3' : 'gap-3 px-4 py-3',
                     isActive
-                      ? 'bg-[var(--color-primary)]/20 text-[var(--color-accent)] border-l-3 border-[var(--color-accent)]'
+                      ? 'bg-[var(--color-primary)]/10 text-[var(--color-accent)]'
                       : 'text-gray-400 hover:text-white hover:bg-white/5'
                   )
                 }
               >
-                <span className="shrink-0">{item.icon}</span>
-                {/* Label — hidden when collapsed */}
-                <span
-                  className="whitespace-nowrap transition-all duration-300 overflow-hidden"
+                <span className={cn(
+                  "shrink-0 transition-transform duration-300",
+                  "group-hover:scale-110"
+                )}>
+                  {item.icon}
+                </span>
+
+                {/* Label Container */}
+                <div
+                  className="relative transition-all duration-300 overflow-hidden"
                   style={{
                     maxWidth: collapsed ? 0 : 160,
                     opacity: collapsed ? 0 : 1,
                   }}
                 >
-                  {item.label}
-                </span>
+                  <span className="whitespace-nowrap relative inline-block pb-0.5">
+                    {item.label}
+                    {/* Underline Indicator */}
+                    <span className={cn(
+                      "absolute bottom-0 left-0 h-0.5 bg-[var(--color-accent)] transition-all duration-400 ease-out rounded-full",
+                      "w-0 group-hover:w-full",
+                      // Keep it full if active
+                      "[[aria-current='page']_&]:w-full"
+                    )} />
+                  </span>
+                </div>
               </NavLink>
             </li>
           ))}
@@ -192,7 +209,7 @@ export default function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps)
       {/* Logout Button */}
       <div className="px-2 py-4 border-t border-white/5">
         <button
-          onClick={() => navigate('/')}
+          onClick={() => setShowLogoutModal(true)}
           title={collapsed ? 'Logout' : undefined}
           className={cn(
             'flex items-center w-full rounded-[10px] text-sm font-medium text-red-400 hover:bg-red-500/10 transition-all cursor-pointer bg-transparent border-none overflow-hidden',
@@ -216,5 +233,54 @@ export default function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps)
         </button>
       </div>
     </aside>
-  );
+
+    {/* ── Logout Confirmation Modal ── */}
+    {showLogoutModal && (
+      <div
+        className="fixed inset-0 z-[999] flex items-center justify-center"
+        style={{ backgroundColor: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(4px)' }}
+        onClick={() => setShowLogoutModal(false)}
+      >
+        <div
+          className="bg-white rounded-2xl shadow-2xl p-8 flex flex-col items-center gap-5 animate-scale-in"
+          style={{ maxWidth: 380, width: '90%' }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Icon */}
+          <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" />
+            </svg>
+          </div>
+          {/* Text */}
+          <div className="text-center">
+            <h2
+              className="text-lg font-bold text-[var(--color-dark)] mb-1"
+              style={{ fontFamily: 'var(--font-heading)' }}
+            >
+              Logout
+            </h2>
+            <p className="text-sm text-[var(--color-gray-500)]">
+              Are you sure you want to logout?
+            </p>
+          </div>
+          {/* Actions */}
+          <div className="flex gap-3 w-full">
+            <button
+              onClick={() => setShowLogoutModal(false)}
+              className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-[var(--color-dark)] bg-gray-100 hover:bg-gray-200 transition-all cursor-pointer border-none outline-none"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => { setShowLogoutModal(false); navigate('/'); }}
+              className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-white bg-red-500 hover:bg-red-600 active:scale-95 transition-all cursor-pointer border-none outline-none shadow-md"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+  </>);
 }

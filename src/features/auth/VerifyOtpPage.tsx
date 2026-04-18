@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import OtpInput from '@/components/ui/OtpInput';
 import Button from '@/components/ui/Button';
 import { useCountdown } from '@/hooks/useCountdown';
+import loginImage from '@/assets/login.png';
 
 export default function VerifyOtpPage() {
   const location = useLocation();
@@ -43,41 +44,48 @@ export default function VerifyOtpPage() {
   };
 
   return (
-    <div className="max-w-md">
+    <div className="w-full text-center lg:text-left">
+      <div className="lg:hidden flex items-center justify-center mb-8">
+        <img
+          src={loginImage}
+          alt="OTP verification"
+          className="w-40 h-40 sm:w-48 sm:h-48 object-contain"
+        />
+      </div>
       <h1
-        className="text-3xl sm:text-4xl font-bold text-[var(--color-dark)] mb-2"
+        className="text-3xl sm:text-4xl font-bold text-(--color-dark) mb-3 text-center"
         style={{ fontFamily: 'var(--font-heading)' }}
       >
         Verify OTP
       </h1>
-      <p className="text-[var(--color-gray-500)] mb-2">
-        Enter the 6-digit code sent to
+      <p className="text-gray-500 max-w-sm mx-auto lg:mx-0 mb-2">
+       Enter the 6-digit code sent to
       </p>
-      <p className="text-[var(--color-dark)] font-semibold mb-10">
+      <p className="text-(--color-dark) font-semibold mb-10">
         {phone}
       </p>
 
       <form onSubmit={handleSubmit}>
-        <div className="bg-white rounded-2xl p-8 shadow-[var(--shadow-lg)] border border-gray-100">
+        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-(--shadow-lg) border border-gray-100 text-left">
           <div className="mb-6">
             <OtpInput length={6} onComplete={handleOtpComplete} />
           </div>
 
           {error && (
-            <p className="text-sm text-[var(--color-error)] text-center mb-4">{error}</p>
+            <p className="text-sm text-(--color-error) text-center mb-4">{error}</p>
           )}
 
           {/* Countdown / Resend */}
           <div className="text-center mb-6">
             {isActive ? (
-              <p className="text-sm text-[var(--color-gray-500)]">
-                Resend code in <span className="font-bold text-[var(--color-dark)]">{display}</span>
+              <p className="text-sm text-gray-500">
+                Resend code in <span className="font-bold text-(--color-dark)">{display}</span>
               </p>
             ) : (
               <button
                 type="button"
                 onClick={handleResend}
-                className="text-sm font-medium text-[var(--color-primary)] hover:underline cursor-pointer bg-transparent border-none"
+                className="text-sm font-medium text-(--color-primary) hover:underline cursor-pointer bg-transparent border-none"
               >
                 Resend OTP
               </button>
@@ -94,8 +102,8 @@ export default function VerifyOtpPage() {
             Verify & Continue
           </Button>
 
-          <p className="text-xs text-center text-[var(--color-gray-400)] mt-5">
-            For demo: Use OTP <span className="font-bold text-[var(--color-dark)]">123456</span>
+          <p className="text-xs text-center text-gray-400 mt-5">
+            For demo: Use OTP <span className="font-bold text-(--color-dark)">123456</span>
           </p>
         </div>
       </form>

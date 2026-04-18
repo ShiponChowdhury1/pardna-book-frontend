@@ -74,7 +74,7 @@ export default function OtpInput({ length = 6, onComplete }: OtpInputProps) {
             'w-12 h-14 text-center text-xl font-bold rounded-lg',
             'border-2 border-[var(--color-gray-200)] bg-white',
             'transition-all duration-200',
-            'focus:outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20',
+            'focus:outline-none focus:border-[var(--color-primary)]',
             'hover:border-[var(--color-gray-300)]',
             val && 'border-[var(--color-primary)]/50'
           )}

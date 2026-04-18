@@ -35,14 +35,26 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-sm font-medium text-[var(--color-gray-500)] hover:text-[var(--color-primary)] transition-colors no-underline">
+            <a
+              href="#features"
+              className="group relative text-sm font-medium text-[var(--color-gray-500)] hover:text-[var(--color-primary)] transition-colors no-underline py-1"
+            >
               Features
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
             </a>
-            <a href="#how-it-works" className="text-sm font-medium text-[var(--color-gray-500)] hover:text-[var(--color-primary)] transition-colors no-underline">
+            <a
+              href="#how-it-works"
+              className="group relative text-sm font-medium text-[var(--color-gray-500)] hover:text-[var(--color-primary)] transition-colors no-underline py-1"
+            >
               How it Works
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
             </a>
-            <a href="#testimonials" className="text-sm font-medium text-[var(--color-gray-500)] hover:text-[var(--color-primary)] transition-colors no-underline">
+            <a
+              href="#testimonials"
+              className="group relative text-sm font-medium text-[var(--color-gray-500)] hover:text-[var(--color-primary)] transition-colors no-underline py-1"
+            >
               Trust
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
             </a>
           </div>
 
@@ -55,7 +67,7 @@ export default function Navbar() {
               Login
             </Link>
             <Link
-              to="/auth/login"
+              to="/auth/register"
               className="px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] rounded-lg hover:shadow-lg hover:shadow-purple-500/25 transition-all no-underline"
             >
               Get Started
@@ -87,6 +99,13 @@ export default function Navbar() {
               <a href="#testimonials" className="text-sm font-medium text-[var(--color-gray-500)] hover:text-[var(--color-primary)] px-2 py-2 no-underline" onClick={() => setMobileOpen(false)}>Trust</a>
               <Link
                 to="/auth/login"
+                className="text-sm font-medium text-[var(--color-primary)] border border-[var(--color-primary)]/30 px-5 py-2.5 rounded-lg text-center no-underline hover:bg-[var(--color-primary)]/5 transition-colors"
+                onClick={() => setMobileOpen(false)}
+              >
+                Login
+              </Link>
+              <Link
+                to="/auth/register"
                 className="text-sm font-medium text-white bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] px-5 py-2.5 rounded-lg text-center no-underline"
                 onClick={() => setMobileOpen(false)}
               >

@@ -9,6 +9,7 @@ import LandingPage from '@/features/landing/LandingPage';
 // Auth
 import AuthLayout from '@/components/layout/AuthLayout';
 import LoginPage from '@/features/auth/LoginPage';
+import RegisterPage from '@/features/auth/RegisterPage';
 import VerifyOtpPage from '@/features/auth/VerifyOtpPage';
 
 // Admin
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
       {
         path: 'login',
         element: <LoginPage />,
+      },
+      {
+        path: 'register',
+        element: <RegisterPage />,
       },
       {
         path: 'verify-otp',

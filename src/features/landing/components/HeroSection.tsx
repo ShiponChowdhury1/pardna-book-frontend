@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import bannerImg from '@/assets/images/banner.png';
+import { Shield } from 'lucide-react';
 
 export default function HeroSection() {
   return (
@@ -12,8 +13,9 @@ export default function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="animate-fade-in-up">
-            <p className="text-sm font-medium text-[var(--color-primary)] mb-4 tracking-wide uppercase">
-              🎯 For the everyday savings group
+            <p className="flex items-center gap-2 text-sm font-medium text-[var(--color-primary)] mb-4 tracking-wide uppercase">
+              <Shield size={16} />
+              Built for community savings groups
             </p>
 
             <h1
@@ -34,10 +36,10 @@ export default function HeroSection() {
 
             <div className="flex flex-wrap gap-4 mb-8">
               <Link
-                to="/auth/login"
+                to="/auth/register"
                 className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold text-white bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] rounded-lg hover:shadow-lg hover:shadow-purple-500/25 transition-all no-underline"
               >
-                Create Your Pardna Group
+               Start Your First Pardna
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
@@ -46,7 +48,7 @@ export default function HeroSection() {
                 to="/auth/login"
                 className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold text-[var(--color-primary)] border-2 border-[var(--color-primary)]/30 rounded-lg hover:bg-[var(--color-primary-50)] transition-all no-underline"
               >
-                Admin Portal
+              I Already Have an Account
               </Link>
             </div>
 

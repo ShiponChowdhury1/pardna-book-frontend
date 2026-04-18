@@ -105,6 +105,11 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--color-gray-400);
 }
 
+/* ── Global Focus Resets ── */
+*:focus {
+  outline: none !important;
+}
+
 /* ── Recharts: remove focus outline on click ── */
 .recharts-wrapper,
 .recharts-wrapper svg,

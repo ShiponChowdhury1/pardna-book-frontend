@@ -65,36 +65,39 @@ export default function HowItWorksSection() {
         </div>
 
         {/* Timeline Steps */}
-        <div className="relative">
-          {/* Vertical timeline line */}
-          <div className="absolute left-[23px] top-6 bottom-6 w-0.5 bg-gradient-to-b from-[var(--color-primary)]/30 via-[var(--color-primary)]/60 to-[var(--color-primary)]/30 hidden sm:block" />
+        <div className="space-y-0">
+          {steps.map((step, index) => (
+            <div
+              key={step.number}
+              className="relative flex items-start gap-6 group pb-10 last:pb-0 animate-fade-in-up"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              {/* Vertical line connecting to next step */}
+              {index !== steps.length - 1 && (
+                <div 
+                  className="absolute left-[23px] top-12 bottom-0 w-0.5 bg-gradient-to-b from-[var(--color-primary)]/60 to-[var(--color-primary)]/30 hidden sm:block" 
+                />
+              )}
 
-          <div className="space-y-10 stagger-children">
-            {steps.map((step) => (
-              <div
-                key={step.number}
-                className="flex items-start gap-6 animate-fade-in-up opacity-0 group"
-              >
-                {/* Step Number Circle */}
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-light)] flex items-center justify-center shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform z-10">
-                  <span className="text-sm font-bold text-white">{step.number}</span>
-                </div>
-
-                {/* Content */}
-                <div className="flex-1 bg-white rounded-xl p-6 border border-gray-100 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-md)] transition-shadow">
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="text-[var(--color-primary)]">{step.icon}</span>
-                    <h3 className="text-lg font-semibold text-[var(--color-dark)]">
-                      {step.title}
-                    </h3>
-                  </div>
-                  <p className="text-sm text-[var(--color-gray-500)] leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
+              {/* Step Number Circle */}
+              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-light)] flex items-center justify-center shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-all z-10 duration-300">
+                <span className="text-sm font-bold text-white">{step.number}</span>
               </div>
-            ))}
-          </div>
+
+              {/* Content Card */}
+              <div className="flex-1 bg-white rounded-2xl p-6 border border-gray-100 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-md)] transition-all duration-300">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-[var(--color-primary)]">{step.icon}</span>
+                  <h3 className="text-lg font-semibold text-[var(--color-dark)] group-hover:text-[var(--color-primary)] transition-colors">
+                    {step.title}
+                  </h3>
+                </div>
+                <p className="text-sm text-[var(--color-gray-500)] leading-relaxed">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

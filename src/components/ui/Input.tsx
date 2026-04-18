@@ -39,7 +39,7 @@ export default function Input({
             'w-full px-4 py-3 rounded-lg border border-[var(--color-gray-200)] bg-white',
             'text-[var(--color-dark)] placeholder:text-[var(--color-gray-400)]',
             'transition-all duration-200',
-            'focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)]',
+            'focus:outline-none focus:border-[var(--color-primary)]',
             'hover:border-[var(--color-gray-300)]',
             icon && 'pl-10',
             error && 'border-[var(--color-error)] focus:ring-[var(--color-error)]/20',

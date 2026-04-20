@@ -98,6 +98,17 @@ const statsRow2 = [
   },
 ];
 
+const kycApplications = [
+  { id: 'KYC001', name: 'Sarah Johnson',  phone: '+44 7700 900001', submittedAt: '2026-04-15 08:30', status: 'pending'  as const },
+  { id: 'KYC002', name: 'Donna Richards', phone: '+44 7700 900003', submittedAt: '2026-04-14 16:45', status: 'pending'  as const },
+  { id: 'KYC003', name: 'James King',     phone: '+44 7700 900004', submittedAt: '2026-04-14 11:20', status: 'pending'  as const },
+  { id: 'KYC004', name: 'Mike Thompson',  phone: '+44 7700 900002', submittedAt: '2026-04-13 09:00', status: 'approved' as const },
+  { id: 'KYC005', name: 'Grace Miller',   phone: '+44 7700 900005', submittedAt: '2026-04-12 14:10', status: 'rejected' as const },
+];
+
+const pendingKyc   = kycApplications.filter(k => k.status === 'pending');
+const processedKyc = kycApplications.filter(k => k.status !== 'pending');
+
 const pardnasAttention = [
   { name: 'Family Monthly', banker: 'Sarah J.', overdue: 1 },
   { name: 'Community Build', banker: 'Donna R.', overdue: 2 },
@@ -127,30 +138,7 @@ export default function OverviewPage() {
           <StatsCard key={stat.label} {...stat} />
         ))}
       </div>
-
-      {/* KYC Applications Alert */}
-      <div className="bg-white rounded-xl border border-gray-100 p-5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2">
-                <circle cx="12" cy="12" r="10" />
-                <path d="M12 8v4M12 16h.01" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[var(--color-dark)]">KYC Applications</p>
-              <p className="text-xs text-[var(--color-gray-400)]">3 pending review</p>
-            </div>
-          </div>
-          <a href="/admin/kyc" className="text-sm font-medium text-[var(--color-primary)] hover:underline no-underline flex items-center gap-1">
-            Review
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-        </div>
-      </div>
+      
 
       {/* Pardnas Needing Attention */}
       <div className="bg-white rounded-xl border border-gray-100 p-5">

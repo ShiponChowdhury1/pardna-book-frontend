@@ -1,95 +1,103 @@
 import { useState } from 'react';
-import Badge from '@/components/ui/Badge';
+import { Search } from 'lucide-react';
+import ParticipantsTab from './participants/ParticipantsTab';
+import PaymentsTab     from './participants/PaymentsTab';
+import PayoutsTab      from './participants/PayoutsTab';
 
-const participants = [
-  { id: 'U001', name: 'Grace Mitchell', phone: '+44 7933 111222', pardna: 'Family Monthly', banker: 'Sarah J.', contributions: 8, trustScore: 96, status: 'active' as const },
-  { id: 'U002', name: 'David Brown', phone: '+44 7944 222333', pardna: 'Community Build', banker: 'Donna R.', contributions: 12, trustScore: 91, status: 'active' as const },
-  { id: 'U003', name: 'Tanya Williams', phone: '+1 404 555 7890', pardna: 'Youth Club Savings', banker: 'James K.', contributions: 4, trustScore: 78, status: 'overdue' as const },
-  { id: 'U004', name: 'Michael Harris', phone: '+1 876 555 4567', pardna: 'Summer Holiday Fund', banker: 'Mike T.', contributions: 10, trustScore: 93, status: 'completed' as const },
-  { id: 'U005', name: 'Lisa Campbell', phone: '+44 7955 333444', pardna: 'Family Monthly', banker: 'Sarah J.', contributions: 8, trustScore: 89, status: 'active' as const },
-  { id: 'U006', name: 'Andre Clarke', phone: '+44 7966 444555', pardna: 'Community Build', banker: 'Donna R.', contributions: 11, trustScore: 85, status: 'active' as const },
-  { id: 'U007', name: 'Sharon Peters', phone: '+44 7977 555666', pardna: 'Wedding Savings', banker: 'Andrea C.', contributions: 3, trustScore: 82, status: 'active' as const },
-  { id: 'U008', name: 'Kevin Stewart', phone: '+1 876 555 8901', pardna: 'Business Starter', banker: 'Paul M.', contributions: 6, trustScore: 70, status: 'paused' as const },
+type Tab = 'participants' | 'payments' | 'payouts';
+
+const TABS: { key: Tab; label: string; icon: React.ReactNode }[] = [
+  {
+    key: 'participants',
+    label: 'Participants',
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4-4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+      </svg>
+    ),
+  },
+  {
+    key: 'payments',
+    label: 'Payments',
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <rect x="2" y="5" width="20" height="14" rx="2"/>
+        <path d="M2 10h20"/>
+      </svg>
+    ),
+  },
+  {
+    key: 'payouts',
+    label: 'Payouts',
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+        <path d="M14 2v6h6M16 13H8M16 17H8"/>
+      </svg>
+    ),
+  },
 ];
 
-const statusBadge: Record<string, 'success' | 'warning' | 'error' | 'default'> = {
-  active: 'success',
-  completed: 'info' as 'success',
-  overdue: 'error',
-  paused: 'warning',
-};
-
 export default function ParticipantsPage() {
-  const [search, setSearch] = useState('');
-
-  const filtered = participants.filter(
-    (p) =>
-      p.name.toLowerCase().includes(search.toLowerCase()) ||
-      p.pardna.toLowerCase().includes(search.toLowerCase())
-  );
+  const [activeTab, setActiveTab] = useState<Tab>('participants');
+  const [search, setSearch]       = useState('');
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="flex items-center justify-between">
+    <div className="space-y-5 animate-fade-in">
+
+      {/* Page header */}
+      <div>
         <h1 className="text-xl font-bold text-[var(--color-dark)]" style={{ fontFamily: 'var(--font-heading)' }}>
           Participants
         </h1>
-        <span className="text-sm text-[var(--color-gray-400)]">{participants.length} total participants</span>
+        <p className="text-sm text-[var(--color-gray-400)] mt-0.5">
+          Manage participants, their payments and payouts
+        </p>
       </div>
 
       {/* Search */}
-      <div className="relative max-w-sm">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-gray-400)" strokeWidth="2" className="absolute left-3 top-1/2 -translate-y-1/2">
-          <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
-        </svg>
+      <div className="relative max-w-lg">
+        <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-gray-400)]" />
         <input
           type="text"
           placeholder="Search participants..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/15 focus:border-[var(--color-primary)]/30 transition-all"
+          className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-gray-200 bg-white text-sm focus:outline-none focus:border-[var(--color-primary)] transition-all"
         />
       </div>
 
-      {/* Table */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-gray-100">
-                <th className="text-left text-xs font-semibold text-[var(--color-gray-400)] uppercase tracking-wider px-5 py-3">Name</th>
-                <th className="text-left text-xs font-semibold text-[var(--color-gray-400)] uppercase tracking-wider px-5 py-3">Phone</th>
-                <th className="text-left text-xs font-semibold text-[var(--color-gray-400)] uppercase tracking-wider px-5 py-3">Pardna</th>
-                <th className="text-left text-xs font-semibold text-[var(--color-gray-400)] uppercase tracking-wider px-5 py-3">Banker</th>
-                <th className="text-left text-xs font-semibold text-[var(--color-gray-400)] uppercase tracking-wider px-5 py-3">Contributions</th>
-                <th className="text-left text-xs font-semibold text-[var(--color-gray-400)] uppercase tracking-wider px-5 py-3">Trust</th>
-                <th className="text-left text-xs font-semibold text-[var(--color-gray-400)] uppercase tracking-wider px-5 py-3">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.map((p) => (
-                <tr key={p.id} className="border-b border-gray-50 last:border-0 hover:bg-gray-50/50 transition-colors">
-                  <td className="px-5 py-3.5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 text-xs font-bold">
-                        {p.name.split(' ').map((n) => n[0]).join('')}
-                      </div>
-                      <span className="text-sm font-medium text-[var(--color-dark)]">{p.name}</span>
-                    </div>
-                  </td>
-                  <td className="px-5 py-3.5 text-sm text-[var(--color-gray-500)]">{p.phone}</td>
-                  <td className="px-5 py-3.5 text-sm text-[var(--color-gray-500)]">{p.pardna}</td>
-                  <td className="px-5 py-3.5 text-sm text-[var(--color-gray-500)]">{p.banker}</td>
-                  <td className="px-5 py-3.5 text-sm font-medium text-[var(--color-dark)]">{p.contributions}</td>
-                  <td className="px-5 py-3.5 text-sm font-medium text-[var(--color-primary)]">{p.trustScore}</td>
-                  <td className="px-5 py-3.5">
-                    <Badge variant={statusBadge[p.status] || 'default'} size="sm">{p.status}</Badge>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {/* Tab navigation */}
+      <div className="border-b border-gray-200">
+        <div className="flex items-center gap-0">
+          {TABS.map(tab => (
+            <button
+              key={tab.key}
+              onClick={() => { setActiveTab(tab.key); setSearch(''); }}
+              className={`flex items-center gap-2 px-5 py-3 text-sm font-medium transition-all cursor-pointer border-none bg-transparent relative ${
+                activeTab === tab.key
+                  ? 'text-orange-500'
+                  : 'text-[var(--color-gray-400)] hover:text-[var(--color-dark)]'
+              }`}
+            >
+              {tab.icon}
+              {tab.label}
+              {/* Active underline */}
+              {activeTab === tab.key && (
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-500 rounded-full" />
+              )}
+            </button>
+          ))}
         </div>
+      </div>
+
+      {/* Tab content */}
+      <div>
+        {activeTab === 'participants' && <ParticipantsTab search={search} />}
+        {activeTab === 'payments'     && <PaymentsTab     search={search} />}
+        {activeTab === 'payouts'      && <PayoutsTab      search={search} />}
       </div>
     </div>
   );

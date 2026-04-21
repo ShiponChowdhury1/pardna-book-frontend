@@ -37,7 +37,6 @@ const PARDNAS: Pardna[] = [
 // ─── Stats ─────────────────────────────────────────────────────────────────────
 
 const activeCount    = PARDNAS.filter(p => p.status === 'active').length;
-const completedCount = PARDNAS.filter(p => p.status === 'completed').length;
 const totalCollected = PARDNAS.reduce((sum, p) => {
   const val = parseFloat(p.collected.replace(/[£,]/g, ''));
   return sum + (isNaN(val) ? 0 : val);

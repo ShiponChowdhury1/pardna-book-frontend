@@ -56,7 +56,6 @@ const typeMeta: Record<LogType, { label: string; cls: string }> = {
 
 const paymentCount   = LOGS.filter(l => l.type === 'payment' || l.type === 'payout').length;
 const adminCount     = LOGS.filter(l => l.type === 'admin').length;
-const lifecycleCount = LOGS.filter(l => l.type === 'lifecycle').length;
 const kycCount       = LOGS.filter(l => l.type === 'kyc').length;
 
 const stats = [

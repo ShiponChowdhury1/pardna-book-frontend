@@ -41,7 +41,7 @@ export default function Input({
             'transition-all duration-200',
             'focus:outline-none focus:border-[var(--color-primary)]',
             'hover:border-[var(--color-gray-300)]',
-            icon && 'pl-10',
+            !!icon && 'pl-10',
             error && 'border-[var(--color-error)] focus:ring-[var(--color-error)]/20',
             className
           )}

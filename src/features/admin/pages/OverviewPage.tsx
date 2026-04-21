@@ -98,16 +98,7 @@ const statsRow2 = [
   },
 ];
 
-const kycApplications = [
-  { id: 'KYC001', name: 'Sarah Johnson',  phone: '+44 7700 900001', submittedAt: '2026-04-15 08:30', status: 'pending'  as const },
-  { id: 'KYC002', name: 'Donna Richards', phone: '+44 7700 900003', submittedAt: '2026-04-14 16:45', status: 'pending'  as const },
-  { id: 'KYC003', name: 'James King',     phone: '+44 7700 900004', submittedAt: '2026-04-14 11:20', status: 'pending'  as const },
-  { id: 'KYC004', name: 'Mike Thompson',  phone: '+44 7700 900002', submittedAt: '2026-04-13 09:00', status: 'approved' as const },
-  { id: 'KYC005', name: 'Grace Miller',   phone: '+44 7700 900005', submittedAt: '2026-04-12 14:10', status: 'rejected' as const },
-];
 
-const pendingKyc   = kycApplications.filter(k => k.status === 'pending');
-const processedKyc = kycApplications.filter(k => k.status !== 'pending');
 
 const pardnasAttention = [
   { name: 'Family Monthly', banker: 'Sarah J.', overdue: 1 },

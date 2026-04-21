@@ -28,12 +28,6 @@ interface Banker {
   signs: TrustSign[];
 }
 
-const ratingOf = (score: number): Rating =>
-  score >= 88 ? 'Strong' : score >= 75 ? 'Fair' : 'Weak';
-
-const overallOf = (score: number) =>
-  score >= 90 ? 'Excellent' : score >= 80 ? 'Reliable' : score >= 70 ? 'Average' : 'At Risk';
-
 const makeSign = (label: string, desc: string, rating: Rating): TrustSign => ({ label, desc, rating });
 
 const BANKERS: Banker[] = [

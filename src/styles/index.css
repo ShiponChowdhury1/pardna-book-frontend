@@ -1,19 +1,25 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap");
+
+.landing-dm-sans,
+.landing-dm-sans * {
+  font-family: 'DM Sans', sans-serif;
+}
 
 /* ── CSS Custom Properties (Design Tokens) ── */
 :root {
   /* Primary */
-  --color-primary: #6C2BD9;
-  --color-primary-light: #8B5CF6;
-  --color-primary-dark: #5521B5;
+  --color-primary: #FF9C65;
+  --color-primary-light: #FF9C65;
+  --color-primary-dark: #FF9C65;
   --color-primary-50: #F5F3FF;
   --color-primary-100: #EDE9FE;
-  --color-primary-200: #DDD6FE;
-  --color-primary-500: #8B5CF6;
-  --color-primary-600: #7C3AED;
-  --color-primary-700: #6D28D9;
-  --color-primary-800: #5B21B6;
-  --color-primary-900: #4C1D95;
+  --color-primary-200: #1E2D3D;
+  --color-primary-500: #FF9C65;
+  --color-primary-600: #FF9C65;
+  --color-primary-700: #FF9C65;
+  --color-primary-800: #FF9C65;
+  --color-primary-900: #FF9C65;
 
   /* Accent */
   --color-accent: #F97316;

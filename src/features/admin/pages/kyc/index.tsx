@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import StatsCard from '../components/StatsCard';
+import StatsCard from '../../components/StatsCard';
 
 const kycApplications = [
   { id: 'KYC001', name: 'Sarah Johnson',  email: 'sarah.j@email.com',  phone: '+44 7700 900001', submittedAt: '2026-04-15 08:30', documents: ['ID Card', 'Proof of Address'], status: 'pending'  as const },

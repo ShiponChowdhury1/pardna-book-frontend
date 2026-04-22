@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BarChart, Bar, XAxis, Tooltip } from 'recharts';
 import { RechartsDevtools } from '@recharts/devtools';
 
@@ -25,7 +26,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
         }}
       >
         <p style={{ color: '#6B7280', marginBottom: 4, fontWeight: 500 }}>{label}</p>
-        <p style={{ color: '#7C3AED', fontWeight: 700 }}>
+        <p style={{ color: '#E57432', fontWeight: 700 }}>
           £{payload[0].value.toLocaleString()}
         </p>
       </div>
@@ -71,8 +72,14 @@ export default function MonthlyCollectionsBarChart() {
           tickLine={false}
           tick={{ fill: '#9CA3AF', fontSize: 12 }}
         />
-        <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(124,58,237,0.06)', radius: 6 }} />
-        <Bar dataKey="collected" fill="#7C3AED" radius={[6, 6, 0, 0]} maxBarSize={40} />
+        <defs>
+          <linearGradient id="monthly-collections-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#E57432" />
+            <stop offset="100%" stopColor="#FF9C65" />
+          </linearGradient>
+        </defs>
+        <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(229,116,50,0.08)', radius: 6 }} />
+        <Bar dataKey="collected" fill="url(#monthly-collections-grad)" radius={[6, 6, 0, 0]} maxBarSize={40} />
         <RechartsDevtools />
       </BarChart>
     </div>

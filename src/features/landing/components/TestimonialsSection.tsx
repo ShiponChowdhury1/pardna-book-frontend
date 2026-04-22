@@ -1,26 +1,26 @@
 import Card from '@/components/ui/Card';
+import manAvatar from '@/assets/man/man.svg';
+import man1Avatar from '@/assets/man/man1.svg';
+import man2Avatar from '@/assets/man/man2.svg';
 
 const testimonials = [
   {
     quote: "It finally put method to the madness of running my pardna. Everything is clear and tracked like a professional.",
     name: 'Sharon Metoyer',
     role: 'Pardna Banker, London',
-    avatar: 'SM',
-    color: '#F59E0B',
+    avatarImage: manAvatar,
   },
   {
     quote: "No more arguments about contributions! The payment data is crystal clear. The transparency alone worth it.",
     name: 'Michael Burley',
     role: 'Community Builder, Atlanta',
-    avatar: 'MB',
-    color: '#3B82F6',
+    avatarImage: man1Avatar,
   },
   {
-    quote: "Running my group was stressful before. Now it's so easy and every participant trusts in the system.",
+    quote: "Running my group was stressful before. Now it's so easy and every participant trusts in the system. Highly recommend!",
     name: 'Andrea Clarke',
     role: 'Group Organizer, Toronto',
-    avatar: 'AC',
-    color: '#10B981',
+    avatarImage: man2Avatar,
   },
 ];
 
@@ -41,7 +41,14 @@ export default function TestimonialsSection() {
         {/* Testimonial Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 stagger-children">
           {testimonials.map((t) => (
-            <Card key={t.name} hover className="animate-fade-in-up opacity-0 relative">
+            <Card
+              key={t.name}
+              hover
+              className="animate-fade-in-up opacity-0 relative overflow-hidden"
+              style={{ backgroundColor: '#F5F0EB80' }}
+            >
+              <div className="absolute top-0 left-0 right-0 h-[1.44px] bg-[linear-gradient(90deg,#E57432_0%,#FF9C65_100%)]" />
+
               {/* Quote mark */}
               <div className="text-4xl font-bold bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] bg-clip-text text-transparent mb-4 leading-none">
                 "
@@ -52,12 +59,11 @@ export default function TestimonialsSection() {
               </p>
 
               <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold"
-                  style={{ backgroundColor: t.color }}
-                >
-                  {t.avatar}
-                </div>
+                <img
+                  src={t.avatarImage}
+                  alt={t.name}
+                  className="w-14 h-14 rounded-full object-cover"
+                />
                 <div>
                   <p className="text-sm font-semibold text-[var(--color-dark)]">{t.name}</p>
                   <p className="text-xs text-[var(--color-gray-400)]">{t.role}</p>

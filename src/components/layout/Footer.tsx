@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import navbarLogo from '@/assets/logos/navbarLogo.svg';
 
 export default function Footer() {
   return (
@@ -7,25 +8,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link to="/home" className="flex items-center gap-2 no-underline mb-4">
-              <svg width="28" height="28" viewBox="0 0 52 52" fill="none">
-                <path
-                  d="M26 4C13.85 4 4 13.85 4 26s9.85 22 22 22"
-                  stroke="url(#footer-grad)"
-                  strokeWidth="5"
-                  strokeLinecap="round"
-                  fill="none"
-                />
-                <defs>
-                  <linearGradient id="footer-grad" x1="4" y1="26" x2="26" y2="48">
-                    <stop offset="0%" stopColor="#8B5CF6" />
-                    <stop offset="100%" stopColor="#6C2BD9" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <span className="text-lg font-bold text-white" style={{ fontFamily: 'var(--font-heading)' }}>
-                PardnaBook
-              </span>
+            <Link to="/home" className="flex items-center no-underline mb-4">
+              <img src={navbarLogo} alt="PardnaBook logo" className="h-9 w-auto" />
             </Link>
             <p className="text-sm text-gray-400 max-w-xs leading-relaxed">
               The easiest way to manage your pardna properly. Loved by community savers worldwide.

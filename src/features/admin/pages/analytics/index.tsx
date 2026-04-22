@@ -1,7 +1,7 @@
-import StatsCard from '../components/StatsCard';
-import PardnaStatusPieChart from '../components/charts/PardnaStatusPieChart';
-import MonthlyCollectionsBarChart from '../components/charts/MonthlyCollectionsBarChart';
-import UserGrowthLineChart from '../components/charts/UserGrowthLineChart';
+import StatsCard from '../../components/StatsCard';
+import PardnaStatusPieChart from '../../components/charts/PardnaStatusPieChart';
+import MonthlyCollectionsBarChart from '../../components/charts/MonthlyCollectionsBarChart';
+import UserGrowthLineChart from '../../components/charts/UserGrowthLineChart';
 
 const analyticsStats = [
   {

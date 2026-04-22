@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Search } from 'lucide-react';
-import ParticipantsTab from './participants/ParticipantsTab';
-import PaymentsTab     from './participants/PaymentsTab';
-import PayoutsTab      from './participants/PayoutsTab';
+import ParticipantsTab from './ParticipantsTab';
+import PaymentsTab     from './PaymentsTab';
+import PayoutsTab      from './PayoutsTab';
 
 type Tab = 'participants' | 'payments' | 'payouts';
 

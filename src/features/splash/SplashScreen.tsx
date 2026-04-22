@@ -38,7 +38,7 @@ export default function SplashScreen() {
           viewBox="0 0 52 52"
           fill="none"
           style={{
-            filter: 'drop-shadow(0 0 20px rgba(108, 43, 217, 0.5))',
+            filter: 'drop-shadow(0 0 20px rgba(229, 116, 50, 0.5))',
           }}
         >
           <path
@@ -55,8 +55,8 @@ export default function SplashScreen() {
           />
           <defs>
             <linearGradient id="splash-grad" x1="4" y1="26" x2="26" y2="48">
-              <stop offset="0%" stopColor="#8B5CF6" />
-              <stop offset="100%" stopColor="#6C2BD9" />
+              <stop offset="0%" stopColor="#E57432" />
+              <stop offset="100%" stopColor="#FF9C65" />
             </linearGradient>
           </defs>
         </svg>
@@ -67,7 +67,7 @@ export default function SplashScreen() {
             fontFamily: "'Outfit', sans-serif",
             fontSize: '36px',
             fontWeight: 700,
-            color: '#7C3AED',
+            color: '#FF9C65',
             opacity: 0,
             animation: 'splash-text 0.8s 0.6s ease forwards',
             letterSpacing: '-0.02em',

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Eye, Search, ChevronLeft, ChevronRight } from 'lucide-react';
-import StatsCard from '../components/StatsCard';
+import StatsCard from '../../components/StatsCard';
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 

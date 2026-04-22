@@ -14,18 +14,15 @@ import VerifyOtpPage from '@/features/auth/VerifyOtpPage';
 
 // Admin
 import AdminLayout from '@/features/admin/AdminLayout';
-import OverviewPage from '@/features/admin/pages/OverviewPage';
-import AnalyticsPage from '@/features/admin/pages/AnalyticsPage';
-import AllPardnasPage from '@/features/admin/pages/AllPardnasPage';
-import BankersPage from '@/features/admin/pages/BankersPage';
-import ParticipantsPage from '@/features/admin/pages/ParticipantsPage';
-import KycReviewPage from '@/features/admin/pages/KycReviewPage';
-import AuditLogPage from '@/features/admin/pages/AuditLogPage';
-import SettingsPage from '@/features/admin/pages/SettingsPage';
+import OverviewPage     from '@/features/admin/pages/overview';
+import AnalyticsPage    from '@/features/admin/pages/analytics';
+import AllPardnasPage   from '@/features/admin/pages/pardnas';
+import BankersPage      from '@/features/admin/pages/bankers';
+import ParticipantsPage from '@/features/admin/pages/participants';
+import KycReviewPage    from '@/features/admin/pages/kyc';
+import AuditLogPage     from '@/features/admin/pages/audit';
+import SettingsPage     from '@/features/admin/pages/settings';
 
-// Placeholder dashboards
-import BankerLayout from '@/features/banker/BankerLayout';
-import ParticipantLayout from '@/features/participant/ParticipantLayout';
 
 export const router = createBrowserRouter([
   // Splash Screen (entry point)
@@ -98,17 +95,5 @@ export const router = createBrowserRouter([
         element: <SettingsPage />,
       },
     ],
-  },
-
-  // Banker Dashboard (placeholder)
-  {
-    path: '/banker',
-    element: <BankerLayout />,
-  },
-
-  // Participant Dashboard (placeholder)
-  {
-    path: '/participant',
-    element: <ParticipantLayout />,
   },
 ]);

@@ -1,29 +1,26 @@
 import Card from '@/components/ui/Card';
+import { BookOpen, Clock, Eye, TrendingUp } from 'lucide-react';
 
 const topFeatures = [
   {
-    icon: '🔒',
+    icon: <BookOpen size={22} />,
     title: 'Secure Ledger',
     description: 'Every contribution is recorded with timestamps and confirmation — a clear record everyone can trust.',
-    color: 'from-purple-500/10 to-violet-500/10',
   },
   {
-    icon: '⏰',
+    icon: <Clock size={22} />,
     title: 'Reminders to Ranki...',
     description: 'Automated payment reminders so no contributor misses their turn to keep the cycle running smoothly.',
-    color: 'from-emerald-500/10 to-teal-500/10',
   },
   {
-    icon: '📊',
+    icon: <TrendingUp size={22} />,
     title: 'Trust Score',
     description: 'Build reputation with a transparent scoring system that rewards consistency and on-time payments.',
-    color: 'from-blue-500/10 to-cyan-500/10',
   },
   {
-    icon: '📋',
+    icon: <Eye size={22} />,
     title: 'Self Audit Trail',
     description: 'Comprehensive audit history to maintain transparency, resolve disputes, and satisfy compliance needs.',
-    color: 'from-amber-500/10 to-orange-500/10',
   },
 ];
 
@@ -63,6 +60,11 @@ const bottomFeatures = [
 ];
 
 export default function FeaturesSection() {
+  const topFeatureCardStyle = {
+    backgroundColor: '#F5F0EB80',
+    boxShadow: '0px 1.03px 2.06px -1.03px #0000001A, 0px 1.03px 3.09px 0px #0000001A',
+  };
+
   return (
     <section className="py-24 bg-white" id="features">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -82,8 +84,9 @@ export default function FeaturesSection() {
         {/* Top Feature Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 stagger-children">
           {topFeatures.map((feature) => (
-            <Card key={feature.title} hover className="animate-fade-in-up opacity-0 group">
-              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform`}>
+            <Card key={feature.title} variant="elevated" className="animate-fade-in-up opacity-0 group border-0 relative overflow-hidden" style={topFeatureCardStyle}>
+              <div className="absolute left-0 top-0 bottom-0 w-[2.44px] rounded-l-[var(--radius-lg)] bg-[linear-gradient(90deg,#E57432_0%,#FF9C65_100%)]" />
+              <div className="w-12 h-12 rounded-xl bg-[linear-gradient(90deg,#E57432_0%,#FF9C65_100%)] text-white flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-md">
                 {feature.icon}
               </div>
               <h3 className="text-base font-semibold text-[var(--color-dark)] mb-2">
@@ -99,7 +102,7 @@ export default function FeaturesSection() {
         {/* Bottom Highlight Features */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 stagger-children">
           {bottomFeatures.map((feature) => (
-            <div key={feature.title} className="text-center animate-fade-in-up opacity-0">
+            <div key={feature.title} className="text-center animate-fade-in-up opacity-0 bg-white rounded-xl p-6 shadow-sm">
               <div className="w-14 h-14 rounded-full bg-[var(--color-primary-50)] flex items-center justify-center mx-auto mb-4">
                 {feature.icon}
               </div>

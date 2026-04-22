@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/utils/cn';
+import navbarLogo from '@/assets/logos/navbarLogo.svg';
 
 const navItems = [
   {
@@ -112,38 +113,12 @@ export default function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps)
         className="flex items-center border-b border-white/5"
         style={{ padding: '12px 16px', minHeight: 64, gap: 12 }}
       >
-        {/* Logo icon — always visible */}
-        <div className="shrink-0">
-          <svg width="28" height="28" viewBox="0 0 52 52" fill="none">
-            <path
-              d="M26 4C13.85 4 4 13.85 4 26s9.85 22 22 22"
-              stroke="url(#sidebar-grad)"
-              strokeWidth="5"
-              strokeLinecap="round"
-              fill="none"
-            />
-            <defs>
-              <linearGradient id="sidebar-grad" x1="4" y1="26" x2="26" y2="48">
-                <stop offset="0%" stopColor="#8B5CF6" />
-                <stop offset="100%" stopColor="#6C2BD9" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
-
-        {/* Brand text — hides when collapsed */}
-        <div
-          className="flex-1 overflow-hidden transition-all duration-300"
-          style={{ opacity: collapsed ? 0 : 1, maxWidth: collapsed ? 0 : 160 }}
-        >
-          <span
-            className="text-base font-bold block leading-tight whitespace-nowrap"
-            style={{ fontFamily: 'var(--font-heading)' }}
-          >
-            PardnaBook
-          </span>
-          <span className="text-[11px] text-gray-400 whitespace-nowrap">Admin Module</span>
-        </div>
+        <img
+          src={navbarLogo}
+          alt="PardnaBook logo"
+          className="object-contain transition-all duration-300"
+          style={{ height: 32, width: collapsed ? 32 : 148 }}
+        />
       </div>
 
       {/* ── Floating circular collapse toggle on right edge ── */}

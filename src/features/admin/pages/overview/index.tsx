@@ -1,5 +1,5 @@
-import StatsCard from '../components/StatsCard';
-import ActivityItem from '../components/ActivityItem';
+import StatsCard from '../../components/StatsCard';
+import ActivityItem from '../../components/ActivityItem';
 import Badge from '@/components/ui/Badge';
 
 const statsRow1 = [

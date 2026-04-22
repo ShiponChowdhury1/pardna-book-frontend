@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 export default function CtaSection() {
   return (
     <section className="py-24 relative overflow-hidden">
-      {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-primary)] via-[var(--color-primary-dark)] to-[#3B1A7E]" />
+      {/* Background Color */}
+      <div className="absolute inset-0 bg-[#1E2D3D]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#521092]/20 via-transparent to-[#9D4EDD]/20" />
 
       {/* Decorative dots */}
       <div className="absolute inset-0 opacity-10">
@@ -22,16 +23,16 @@ export default function CtaSection() {
           Ready to run your pardna properly?
         </h2>
 
-        <p className="text-lg text-purple-200 mb-10 animate-fade-in-up max-w-xl mx-auto" style={{ animationDelay: '100ms' }}>
+        <p className="text-lg text-gray-300 mb-10 animate-fade-in-up max-w-xl mx-auto" style={{ animationDelay: '100ms' }}>
           No more messy notes or missed payments. Just trust, records, and accountability.
         </p>
 
         <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
           <Link
             to="/auth/login"
-            className="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold text-[var(--color-primary)] bg-white rounded-xl hover:bg-gray-50 hover:shadow-xl transition-all no-underline group"
+            className="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold text-white bg-[linear-gradient(90deg,#E57432_0%,#FF9C65_100%)] rounded-xl hover:opacity-95 hover:shadow-xl transition-all no-underline group"
           >
-            Create Your Pardna Account
+            Create Your Banker Account
             <svg
               width="18"
               height="18"
@@ -46,7 +47,7 @@ export default function CtaSection() {
           </Link>
         </div>
 
-        <p className="text-sm text-purple-300/60 mt-6 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
+        <p className="text-sm text-gray-400 mt-6 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
           Free to get started • No credit card required
         </p>
       </div>

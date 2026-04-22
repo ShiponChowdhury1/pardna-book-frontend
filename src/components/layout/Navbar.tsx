@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import navbarLogo from '@/assets/logos/navbarLogo.svg';
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -12,25 +13,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/home" className="flex items-center gap-2 no-underline">
-            <svg width="32" height="32" viewBox="0 0 52 52" fill="none">
-              <path
-                d="M26 4C13.85 4 4 13.85 4 26s9.85 22 22 22"
-                stroke="url(#nav-grad)"
-                strokeWidth="5"
-                strokeLinecap="round"
-                fill="none"
-              />
-              <defs>
-                <linearGradient id="nav-grad" x1="4" y1="26" x2="26" y2="48">
-                  <stop offset="0%" stopColor="#8B5CF6" />
-                  <stop offset="100%" stopColor="#6C2BD9" />
-                </linearGradient>
-              </defs>
-            </svg>
-            <span className="text-xl font-bold text-[var(--color-dark)]" style={{ fontFamily: 'var(--font-heading)' }}>
-              PardnaBook
-            </span>
+          <Link to="/home" className="flex items-center no-underline">
+            <img src={navbarLogo} alt="PardnaBook logo" className="h-9 w-auto" />
           </Link>
 
           {/* Desktop Nav */}

@@ -8,7 +8,7 @@ import CtaSection from './components/CtaSection';
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen landing-dm-sans">
       <Navbar />
       <main>
         <HeroSection />

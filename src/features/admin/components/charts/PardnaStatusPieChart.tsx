@@ -9,7 +9,7 @@ const data = [
   { name: 'Overdue', value: 2 },
 ];
 
-const COLORS = ['#7C3AED', '#10B981', '#F59E0B', '#EF4444'];
+const COLORS = ['url(#active-pardna-grad)', '#10B981', '#3B82F6', '#EF4444'];
 const RADIAN = Math.PI / 180;
 
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: PieLabelRenderProps) => {
@@ -31,6 +31,13 @@ const MyCustomSector = (props: PieSectorShapeProps) => (
   <Sector {...props} fill={COLORS[(props.index ?? 0) % COLORS.length]} stroke="none" strokeWidth={0} />
 );
 
+const getIndicatorStyle = (index: number) => {
+  if (index === 0) {
+    return { background: 'linear-gradient(90deg, #E57432 0%, #FF9C65 100%)' };
+  }
+  return { backgroundColor: COLORS[index] ?? '#10B981' };
+};
+
 const CustomTooltip = ({ active, payload }: any) => {
   if (!active || !payload?.length) return null;
   const item = payload[0];
@@ -45,7 +52,17 @@ const CustomTooltip = ({ active, payload }: any) => {
       fontSize: '13px',
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-        <span style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: COLORS[index] ?? '#7C3AED', display: 'inline-block' }} />
+        <span
+          style={{
+            width: 10,
+            height: 10,
+            borderRadius: '50%',
+            display: 'inline-block',
+            ...(index === 0
+              ? { background: 'linear-gradient(90deg, #E57432 0%, #FF9C65 100%)' }
+              : { backgroundColor: COLORS[index] ?? '#10B981' }),
+          }}
+        />
         <span style={{ color: '#111827', fontWeight: 600 }}>{item.name}</span>
       </div>
       <p style={{ color: '#6B7280', marginTop: 4, fontWeight: 500 }}>{item.value} groups</p>
@@ -77,6 +94,12 @@ export default function PardnaStatusPieChart() {
           responsive
           margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
         >
+          <defs>
+            <linearGradient id="active-pardna-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="#E57432" />
+              <stop offset="100%" stopColor="#FF9C65" />
+            </linearGradient>
+          </defs>
           <Pie
             data={data}
             cx="50%"
@@ -99,7 +122,7 @@ export default function PardnaStatusPieChart() {
       <div className="grid grid-cols-2 gap-2 mt-4">
         {data.map((entry, index) => (
           <div key={entry.name} className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-gray-50">
-            <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: COLORS[index] }} />
+            <div className="w-2.5 h-2.5 rounded-full shrink-0" style={getIndicatorStyle(index)} />
             <div className="min-w-0">
               <p className="text-xs font-medium text-[var(--color-dark)] truncate">{entry.name}</p>
               <p className="text-xs text-[var(--color-gray-400)]">{entry.value} groups</p>

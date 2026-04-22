@@ -13,8 +13,8 @@ interface StatsCardProps {
 
 export default function StatsCard({ label, value, icon, iconBg, trend }: StatsCardProps) {
   return (
-    <div className="bg-white rounded-xl border border-gray-100 p-5 hover:shadow-md transition-all group">
-      <div className="flex items-start gap-3">
+    <div className="bg-white rounded-sm border border-gray-100 p-8 hover:shadow-md transition-all group">
+      <div className="flex items-start gap-2">
         {/* Icon */}
         <div
           className={cn(

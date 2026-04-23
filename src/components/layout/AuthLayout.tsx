@@ -21,8 +21,8 @@ export default function AuthLayout() {
             />
             <defs>
               <linearGradient id="auth-grad" x1="4" y1="26" x2="26" y2="48">
-                <stop offset="0%" stopColor="#8B5CF6" />
-                <stop offset="100%" stopColor="#6C2BD9" />
+                <stop offset="0%" stopColor="#FBBF24" />
+                <stop offset="100%" stopColor="#F59E0B" />
               </linearGradient>
             </defs>
           </svg>
@@ -63,7 +63,7 @@ export default function AuthLayout() {
 
               {/* Floating badge */}
               <div className="absolute -bottom-4 left-6 bg-white rounded-2xl px-5 py-3 shadow-lg border border-gray-100 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-light)] flex items-center justify-center shrink-0">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center shrink-0">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                   </svg>

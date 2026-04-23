@@ -15,7 +15,7 @@ export default function CtaSection() {
         <div className="absolute bottom-10 right-1/3 w-3 h-3 rounded-full bg-white" />
       </div>
 
-      <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 text-center">
         <h2
           className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight animate-fade-in-up"
           style={{ fontFamily: 'var(--font-heading)' }}

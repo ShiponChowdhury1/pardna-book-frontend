@@ -17,8 +17,9 @@ export default function DashboardTopBar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 px-4 py-4 sm:px-6 lg:px-8">
-        <div className="mx-auto w-full max-w-[1320px] overflow-hidden rounded-2xl border border-[#F0B28B] bg-white shadow-[0_10px_26px_rgba(10,20,40,0.10)]">
+      <header className="sticky top-16 z-40 py-4">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
+          <div className="w-full overflow-hidden rounded-2xl border border-[#F0B28B] bg-white shadow-[0_10px_26px_rgba(10,20,40,0.10)]">
 
       
           {/* Row 2: Profile Card */}
@@ -70,6 +71,7 @@ export default function DashboardTopBar() {
             ))}
           </nav>
 
+          </div>
         </div>
       </header>
 

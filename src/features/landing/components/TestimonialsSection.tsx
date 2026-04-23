@@ -27,7 +27,7 @@ const testimonials = [
 export default function TestimonialsSection() {
   return (
     <section className="py-24 bg-white" id="testimonials">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
           <h2

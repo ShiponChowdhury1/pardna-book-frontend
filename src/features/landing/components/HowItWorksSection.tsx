@@ -50,7 +50,7 @@ const steps = [
 export default function HowItWorksSection() {
   return (
     <section className="py-24 bg-[var(--color-bg)]" id="how-it-works">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in-up">
           <h2

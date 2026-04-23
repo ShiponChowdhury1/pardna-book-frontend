@@ -23,6 +23,16 @@ import KycReviewPage    from '@/features/admin/pages/kyc';
 import AuditLogPage     from '@/features/admin/pages/audit';
 import SettingsPage     from '@/features/admin/pages/settings';
 
+// User Dashboard
+import DashboardLayout    from '@/features/dashboard/DashboardLayout';
+import HomePage            from '@/features/dashboard/pages/home';
+import DiaryPage           from '@/features/dashboard/pages/diary';
+import PaymentsPage        from '@/features/dashboard/pages/payments';
+import PayoutsPage         from '@/features/dashboard/pages/payouts';
+import NotificationsPage   from '@/features/dashboard/pages/notifications';
+import ProfilePage         from '@/features/dashboard/pages/profile';
+import GuidePage           from '@/features/dashboard/pages/guide';
+
 
 export const router = createBrowserRouter([
   // Splash Screen (entry point)
@@ -93,6 +103,42 @@ export const router = createBrowserRouter([
       {
         path: 'settings',
         element: <SettingsPage />,
+      },
+    ],
+  },
+
+  // User Dashboard
+  {
+    path: '/dashboard',
+    element: <DashboardLayout />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: 'diary',
+        element: <DiaryPage />,
+      },
+      {
+        path: 'payments',
+        element: <PaymentsPage />,
+      },
+      {
+        path: 'payouts',
+        element: <PayoutsPage />,
+      },
+      {
+        path: 'notifications',
+        element: <NotificationsPage />,
+      },
+      {
+        path: 'profile',
+        element: <ProfilePage />,
+      },
+      {
+        path: 'guide',
+        element: <GuidePage />,
       },
     ],
   },

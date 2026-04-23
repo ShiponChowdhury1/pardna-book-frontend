@@ -64,7 +64,7 @@ export default function PayoutsTab({ search }: { search: string }) {
           { label: 'Pending',  value: pendingCount,  color: 'text-orange-500'  },
           { label: 'Upcoming', value: upcomingCount, color: 'text-blue-500'    },
         ].map(s => (
-          <div key={s.label} className="bg-white rounded-xl border border-gray-100 p-5 text-center hover:shadow-sm transition-all">
+          <div key={s.label} className="bg-white rounded-md border border-gray-100 p-5 text-center hover:shadow-sm transition-all">
             <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
             <p className="text-xs text-[var(--color-gray-400)] mt-1">{s.label}</p>
           </div>
@@ -72,7 +72,7 @@ export default function PayoutsTab({ search }: { search: string }) {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-md border border-gray-100 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>

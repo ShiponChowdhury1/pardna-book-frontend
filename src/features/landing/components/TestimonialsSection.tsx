@@ -1,26 +1,26 @@
 import Card from '@/components/ui/Card';
-import manAvatar from '@/assets/man/man.svg';
-import man1Avatar from '@/assets/man/man1.svg';
-import man2Avatar from '@/assets/man/man2.svg';
 
 const testimonials = [
   {
     quote: "It finally put method to the madness of running my pardna. Everything is clear and tracked like a professional.",
     name: 'Sharon Metoyer',
     role: 'Pardna Banker, London',
-    avatarImage: manAvatar,
+    initials: 'SM',
+    gradient: 'from-[#E57432] to-[#FF9C65]',
   },
   {
     quote: "No more arguments about contributions! The payment data is crystal clear. The transparency alone worth it.",
     name: 'Michael Burley',
     role: 'Community Builder, Atlanta',
-    avatarImage: man1Avatar,
+    initials: 'MB',
+    gradient: 'from-[#3B82F6] to-[#60A5FA]',
   },
   {
     quote: "Running my group was stressful before. Now it's so easy and every participant trusts in the system. Highly recommend!",
     name: 'Andrea Clarke',
     role: 'Group Organizer, Toronto',
-    avatarImage: man2Avatar,
+    initials: 'AC',
+    gradient: 'from-[#8B5CF6] to-[#A78BFA]',
   },
 ];
 
@@ -34,7 +34,7 @@ export default function TestimonialsSection() {
             className="text-3xl sm:text-4xl font-bold text-[var(--color-dark)] mb-4"
             style={{ fontFamily: 'var(--font-heading)' }}
           >
-            Trusted by pardna bankers across the UK, US & Caribbean
+            Trusted by pardna bankers across the UK, US &amp; Caribbean
           </h2>
         </div>
 
@@ -59,11 +59,9 @@ export default function TestimonialsSection() {
               </p>
 
               <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                <img
-                  src={t.avatarImage}
-                  alt={t.name}
-                  className="w-14 h-14 rounded-full object-cover"
-                />
+                <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${t.gradient} flex items-center justify-center text-white font-bold text-sm shrink-0`}>
+                  {t.initials}
+                </div>
                 <div>
                   <p className="text-sm font-semibold text-[var(--color-dark)]">{t.name}</p>
                   <p className="text-xs text-[var(--color-gray-400)]">{t.role}</p>
@@ -76,3 +74,4 @@ export default function TestimonialsSection() {
     </section>
   );
 }
+

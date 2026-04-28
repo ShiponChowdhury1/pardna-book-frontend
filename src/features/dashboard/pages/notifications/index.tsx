@@ -47,76 +47,78 @@ const typeConfig: Record<NotiType, { bg: string; icon: React.ReactNode }> = {
 
 export default function NotificationsPage() {
   const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
-  const [filter, setFilter] = useState<'all' | 'unread'>('all');
+  const [filter, setFilter] = useState<'all' | 'overdue' | 'due-soon' | 'payouts'>('all');
 
-  const filtered = filter === 'unread' ? notifications.filter(n => !n.read) : notifications;
-  const unreadCount = notifications.filter(n => !n.read).length;
+  // Extended data with pardna groups
+  const alertNotifications = [
+    { id: 1, type: 'due-soon', title: 'Contributions due soon', desc: '2 participants have contributions due for Round 5.', group: 'Family Monthly', date: '2026-04-21', icon: 'alert' },
+    { id: 2, type: 'due-soon', title: 'Contributions due soon', desc: '2 participants have contributions due for Round 4.', group: 'Work Friends Savings', date: '2026-04-21', icon: 'alert' },
+    { id: 3, type: 'due-soon', title: 'Contributions due soon', desc: '2 participants have contributions due for Round 9.', group: 'Church Building Fund', date: '2026-04-21', icon: 'alert' },
+    { id: 4, type: 'due-soon', title: 'Contributions due soon', desc: '2 participants have contributions due for Round 4.', group: 'Sisters Circle', date: '2026-04-21', icon: 'alert' },
+    { id: 5, type: 'due-soon', title: 'Contributions due soon', desc: '2 participants have contributions due for Round 6.', group: 'Market Traders', date: '2026-04-21', icon: 'alert' },
+    { id: 6, type: 'due-soon', title: 'Contributions due soon', desc: '2 participants have contributions due for Round 2.', group: 'Wedding Pandna', date: '2026-04-21', icon: 'alert' },
+    { id: 7, type: 'due-soon', title: 'Contributions due soon', desc: '2 participants have contributions due for Round 7.', group: 'Back to School', date: '2026-04-21', icon: 'alert' },
+    { id: 8, type: 'overdue', title: 'Late payment — Grace M.', desc: 'Round 6 contribution of £200 was 1 day overdue.', group: 'Family Monthly', date: '2026-04-20', icon: 'warning' },
+    { id: 9, type: 'overdue', title: 'Late payment — Ama O.', desc: 'Round 4 contribution of £150 was 1 day overdue.', group: 'Sisters Circle', date: '2026-04-20', icon: 'warning' },
+    { id: 10, type: 'overdue', title: 'Late payment — Kwame B.', desc: 'Round 6 contribution of £300 was 2 days overdue.', group: 'Market Traders', date: '2026-04-19', icon: 'warning' },
+    { id: 11, type: 'payouts', title: 'Payout Ready', desc: 'You received £1,800 from Work Friends Savings.', group: 'Work Friends Savings', date: '2026-04-21', icon: 'success' },
+  ];
 
-  const markAllRead = () => setNotifications(prev => prev.map(n => ({ ...n, read: true })));
-  const toggleRead = (id: number) => setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: !n.read } : n));
+  const filtered = filter === 'all' ? alertNotifications : alertNotifications.filter(n => n.type === filter);
+
+  const getIcon = (type: string) => {
+    if (type === 'alert') return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E57432" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/></svg>;
+    if (type === 'warning') return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8294A" strokeWidth="2.5"><path d="M12 2l10 18H2z"/></svg>;
+    if (type === 'success') return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>;
+  };
 
   return (
-    <div className="space-y-5 animate-fade-in">
+    <div className="space-y-5 animate-fade-in pb-24">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold text-[var(--color-dark)]" style={{ fontFamily: 'var(--font-heading)' }}>Notifications</h1>
-          <p className="text-sm text-[var(--color-gray-400)] mt-0.5">{unreadCount} unread notifications</p>
+          <h1 className="text-2xl font-bold text-gray-900">Notifications</h1>
         </div>
-        {unreadCount > 0 && (
-          <button onClick={markAllRead}
-            className="text-xs font-semibold text-[#E57432] hover:text-[#c5612a] transition-colors cursor-pointer bg-transparent border-none">
-            Mark all as read
-          </button>
-        )}
       </div>
 
       {/* Filter tabs */}
-      <div className="flex items-center gap-2">
-        {(['all', 'unread'] as const).map(f => (
+      <div className="flex items-center gap-2 overflow-x-auto">
+        {(['all', 'overdue', 'due-soon', 'payouts'] as const).map(f => (
           <button key={f} onClick={() => setFilter(f)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer border-none ${
-              filter === f ? 'bg-[#E57432] text-white' : 'bg-white text-[var(--color-gray-500)] hover:bg-gray-100 border border-gray-200'
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer border-none whitespace-nowrap ${
+              filter === f ? 'bg-[#E57432] text-white' : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
             }`}>
-            {f === 'all' ? `All (${notifications.length})` : `Unread (${unreadCount})`}
+            {f === 'all' ? 'All' : f === 'overdue' ? 'Overdue' : f === 'due-soon' ? 'Due Soon' : 'Payouts'}
           </button>
         ))}
       </div>
 
-      {/* Notification list */}
-      <div className="space-y-2">
+      {/* Notification items */}
+      <div className="space-y-3">
         {filtered.length === 0 ? (
           <div className="bg-white rounded-xl border border-gray-100 p-10 text-center">
-            <div className="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2">
-                <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/>
-              </svg>
-            </div>
-            <p className="text-sm font-semibold text-[var(--color-dark)]">All caught up!</p>
-            <p className="text-xs text-[var(--color-gray-400)] mt-1">No unread notifications</p>
+            <p className="text-sm font-semibold text-gray-900">No notifications</p>
           </div>
         ) : (
-          filtered.map(n => {
-            const config = typeConfig[n.type];
-            return (
-              <div key={n.id}
-                onClick={() => toggleRead(n.id)}
-                className={`flex items-start gap-4 p-4 rounded-xl border transition-all cursor-pointer ${
-                  n.read ? 'bg-white border-gray-100 hover:bg-gray-50' : 'bg-orange-50/30 border-orange-200/50 hover:bg-orange-50/50'
-                }`}>
-                <div className={`w-10 h-10 rounded-xl ${config.bg} flex items-center justify-center shrink-0`}>
-                  {config.icon}
+          filtered.map(n => (
+            <div key={n.id} className="bg-white rounded-xl border border-gray-100 p-4 hover:shadow-sm transition-shadow cursor-pointer">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 mt-1">
+                  {getIcon(n.icon)}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <p className={`text-sm font-semibold ${n.read ? 'text-[var(--color-dark)]' : 'text-[#E57432]'}`}>{n.title}</p>
-                    {!n.read && <span className="w-2 h-2 rounded-full bg-[#E57432] shrink-0" />}
+                  <h3 className="text-sm font-semibold text-gray-900 mb-1">{n.title}</h3>
+                  <p className="text-xs text-gray-500 mb-2">{n.desc}</p>
+                  <div className="flex items-center justify-between">
+                    <div className="text-xs font-medium">
+                      <span className="text-gray-600">{n.group}</span>
+                      <span className="text-gray-400 ml-2">{n.date}</span>
+                    </div>
                   </div>
-                  <p className="text-xs text-[var(--color-gray-500)] mt-1 leading-relaxed">{n.message}</p>
-                  <p className="text-[10px] text-[var(--color-gray-300)] mt-2">{n.time}</p>
                 </div>
               </div>
-            );
-          })
+            </div>
+          ))
         )}
       </div>
     </div>

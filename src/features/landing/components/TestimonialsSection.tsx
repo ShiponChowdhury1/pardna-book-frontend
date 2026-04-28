@@ -26,7 +26,7 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section className="py-24 bg-white" id="testimonials">
+    <section className="py-24 bg-[#FFEEE4]" id="testimonials">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
@@ -44,8 +44,8 @@ export default function TestimonialsSection() {
             <Card
               key={t.name}
               hover
-              className="animate-fade-in-up opacity-0 relative overflow-hidden"
-              style={{ backgroundColor: '#F5F0EB80' }}
+              className="animate-fade-in-up opacity-0 relative overflow-hidden shadow-md"
+              style={{ backgroundColor: '#FFFFFF' }}
             >
               <div className="absolute top-0 left-0 right-0 h-[1.44px] bg-[linear-gradient(90deg,#E57432_0%,#FF9C65_100%)]" />
 

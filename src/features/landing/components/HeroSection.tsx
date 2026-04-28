@@ -4,7 +4,7 @@ import { Shield } from 'lucide-react';
 
 export default function HeroSection() {
   return (
-    <section className="relative pt-28 pb-20 overflow-hidden" id="hero">
+    <section className="relative pt-28 pb-20 overflow-hidden bg-[#FFEEE4]" id="hero">
       {/* Background gradient blobs */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-purple-100/60 via-violet-50/40 to-transparent rounded-full blur-3xl -z-10" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-purple-50/40 to-transparent rounded-full blur-3xl -z-10" />
@@ -66,7 +66,7 @@ export default function HeroSection() {
                 ))}
               </div>
               <p className="text-xs text-[var(--color-gray-400)]">
-                Trusted by <span className="font-semibold text-[var(--color-dark)]">2,400+</span> pardna bankers
+                Trusted by pardna bankers across the UK, US & Caribbean
               </p>
             </div>
           </div>

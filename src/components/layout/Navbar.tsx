@@ -7,7 +7,12 @@ export default function Navbar() {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100"
+      className="fixed top-0 left-0 right-0 z-50 bg-[#FFEEE4]/95 backdrop-blur-lg"
+      style={{
+        borderBottom: '1px solid',
+        borderImageSource: 'linear-gradient(90deg, #E57432 0%, #FF9C65 100%)',
+        borderImageSlice: 1,
+      }}
       id="navbar"
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6">

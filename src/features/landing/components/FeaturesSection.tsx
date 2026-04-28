@@ -61,12 +61,12 @@ const bottomFeatures = [
 
 export default function FeaturesSection() {
   const topFeatureCardStyle = {
-    backgroundColor: '#F5F0EB80',
+    backgroundColor: '#FFFFFF',
     boxShadow: '0px 1.03px 2.06px -1.03px #0000001A, 0px 1.03px 3.09px 0px #0000001A',
   };
 
   return (
-    <section className="py-24 bg-white" id="features">
+    <section className="py-24 bg-[#FFEEE4]" id="features">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16 animate-fade-in-up">

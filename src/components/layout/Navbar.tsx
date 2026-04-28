@@ -27,10 +27,10 @@ export default function Navbar() {
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
             </a>
             <a
-              href="/home#how-it-works"
+              href="/home#features"
               className="group relative text-sm font-medium text-[var(--color-gray-500)] hover:text-[var(--color-primary)] transition-colors no-underline py-1"
             >
-              How it Works
+              Banker Needs
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
             </a>
             <a

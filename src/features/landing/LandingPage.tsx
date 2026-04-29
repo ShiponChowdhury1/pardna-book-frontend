@@ -12,7 +12,6 @@ export default function LandingPage() {
       <main>
         <HeroSection />
         <FeaturesSection />
-      
         <TestimonialsSection />
         <CtaSection />
       </main>

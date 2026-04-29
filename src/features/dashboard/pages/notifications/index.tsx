@@ -1,52 +1,6 @@
 import { useState } from 'react';
 
-type NotiType = 'payment' | 'payout' | 'reminder' | 'system' | 'welcome';
-
-interface Notification {
-  id: number;
-  type: NotiType;
-  title: string;
-  message: string;
-  time: string;
-  read: boolean;
-}
-
-const INITIAL_NOTIFICATIONS: Notification[] = [
-  { id: 1, type: 'reminder', title: 'Payment Due Tomorrow', message: 'Your £300 contribution to Community Build is due tomorrow. Don\'t miss it!', time: '2 hours ago', read: false },
-  { id: 2, type: 'payout', title: 'Payout Received! 🎉', message: 'You received £1,800 from Work Friends Savings. The funds have been transferred to your account.', time: '1 day ago', read: false },
-  { id: 3, type: 'payment', title: 'Payment Confirmed', message: 'Your £200 payment to Family Monthly has been recorded successfully.', time: '2 days ago', read: false },
-  { id: 4, type: 'system', title: 'Trust Score Updated', message: 'Congratulations! Your trust score increased to 92. Keep up the great record!', time: '5 days ago', read: true },
-  { id: 5, type: 'reminder', title: 'Upcoming Draw', message: 'The next draw for Family Monthly is on Apr 27. You\'re position #3.', time: '1 week ago', read: true },
-  { id: 6, type: 'welcome', title: 'Welcome to Community Build!', message: 'You\'ve been added to Community Build as position #2. Your first contribution of £300 is due on Apr 20.', time: '2 weeks ago', read: true },
-  { id: 7, type: 'payment', title: 'Payment Confirmed', message: 'Your £150 payment to Work Friends Savings has been recorded successfully.', time: '2 weeks ago', read: true },
-  { id: 8, type: 'system', title: 'Profile Verified', message: 'Your KYC verification has been approved. You now have full access to all features.', time: '3 weeks ago', read: true },
-];
-
-const typeConfig: Record<NotiType, { bg: string; icon: React.ReactNode }> = {
-  payment: {
-    bg: 'bg-amber-50',
-    icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D97706" strokeWidth="2"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>,
-  },
-  payout: {
-    bg: 'bg-emerald-50',
-    icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>,
-  },
-  reminder: {
-    bg: 'bg-orange-50',
-    icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F97316" strokeWidth="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>,
-  },
-  system: {
-    bg: 'bg-blue-50',
-    icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>,
-  },
-  welcome: {
-    bg: 'bg-purple-50',
-    icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>,
-  },
-};
-
 export default function NotificationsPage() {
-  const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
   const [filter, setFilter] = useState<'all' | 'overdue' | 'due-soon' | 'payouts'>('all');
 
   // Extended data with pardna groups

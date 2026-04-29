@@ -9,7 +9,11 @@ const toggleStyle = `
   .toggle-label input:checked ~ .toggle-thumb { transform: translateX(20px); }
 `;
 
-function Toggle({ defaultChecked }) {
+interface ToggleProps {
+  defaultChecked: boolean;
+}
+
+function Toggle({ defaultChecked }: ToggleProps) {
   const [on, setOn] = useState(defaultChecked);
   return (
     <label className="toggle-label">

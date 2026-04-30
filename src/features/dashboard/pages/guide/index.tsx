@@ -81,7 +81,7 @@ export default function GuidePage() {
       {/* CTA */}
       <div className="flex justify-center">
         <button
-          onClick={() => navigate('/dashboard/home')}
+          onClick={() => navigate('/dashboard/pardnas/new')}
           className="w-full py-3.5 rounded-xl text-white font-semibold text-sm hover:opacity-90 transition-all cursor-pointer"
           style={{ background: 'var(--color-primary)' }}
         >

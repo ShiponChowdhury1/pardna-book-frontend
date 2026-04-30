@@ -38,10 +38,14 @@ export default function NotificationsPage() {
       {/* Filter tabs */}
       <div className="flex items-center gap-2 overflow-x-auto">
         {(['all', 'overdue', 'due-soon', 'payouts'] as const).map(f => (
-          <button key={f} onClick={() => setFilter(f)}
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer border-none whitespace-nowrap ${
-              filter === f ? 'bg-[#E57432] text-white' : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
-            }`}>
+              filter === f ? 'text-white' : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
+            }`}
+            style={filter === f ? { background: 'linear-gradient(90deg, #E57432 0%, #FF9C65 100%)' } : undefined}
+          >
             {f === 'all' ? 'All' : f === 'overdue' ? 'Overdue' : f === 'due-soon' ? 'Due Soon' : 'Payouts'}
           </button>
         ))}

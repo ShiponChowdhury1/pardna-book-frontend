@@ -32,6 +32,7 @@ import PayoutsPage         from '@/features/dashboard/pages/payouts';
 import NotificationsPage   from '@/features/dashboard/pages/notifications';
 import ProfilePage         from '@/features/dashboard/pages/profile';
 import GuidePage           from '@/features/dashboard/pages/guide';
+import NewPardnaPage       from '@/features/dashboard/pages/new-pardna';
 
 
 export const router = createBrowserRouter([
@@ -139,6 +140,10 @@ export const router = createBrowserRouter([
       {
         path: 'guide',
         element: <GuidePage />,
+      },
+      {
+        path: 'pardnas/new',
+        element: <NewPardnaPage />,
       },
     ],
   },

@@ -7,6 +7,7 @@ import {
   endOfWeek,
   format,
   isSameDay,
+  isToday,
   startOfMonth,
   startOfWeek,
   subMonths,
@@ -130,8 +131,8 @@ const PAYOUT_SCHEDULES: Record<string, PayoutSchedule[]> = {
 export default function PardnaDetailPage() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const [currentMonth, setCurrentMonth] = useState(new Date(2024, 10, 1));
-  const [selectedDate, setSelectedDate] = useState(new Date(2024, 10, 24));
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [activeTab, setActiveTab] = useState<'payments' | 'payouts'>('payments');
 
   const pardna = id && PARDNAS[id];
@@ -289,6 +290,7 @@ export default function PardnaDetailPage() {
               const inMonth = day.getMonth() === currentMonth.getMonth();
               const isCollectionDay = isSameDay(day, new Date(2024, 10, 20));
               const isPayoutDay = isSameDay(day, new Date(2024, 10, 21));
+              const isCurrentDay = isToday(day);
               const isSelected = isSameDay(day, selectedDate);
 
               return (
@@ -303,7 +305,9 @@ export default function PardnaDetailPage() {
                   className={`mx-auto h-11 w-11 sm:h-12 sm:w-12 rounded-full text-sm sm:text-base font-medium transition-all ${
                     inMonth ? 'cursor-pointer' : 'cursor-default'
                   } ${
-                    isSelected
+                    isCurrentDay
+                      ? 'bg-[var(--color-primary)] text-white shadow-sm'
+                      : isSelected
                       ? 'text-slate-900 font-semibold'
                       : isPayoutDay
                       ? 'text-[#ff7a00] font-semibold'

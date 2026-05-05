@@ -15,16 +15,16 @@ interface AuditLog {
 }
 
 const LOGS: AuditLog[] = [
-  { id: 1, time: '2026-04-20 16:00', action: 'Recorded payment', pardna: 'Family Monthly', participant: 'Ama O.', amount: 200, type: 'payment' },
-  { id: 2, time: '2026-04-20 16:00', action: 'Recorded payment', pardna: 'Work Friends Savings', participant: 'Lisa A.', amount: 100, type: 'payment' },
-  { id: 3, time: '2026-04-20 16:00', action: 'Recorded payment', pardna: 'Church Building Fund', participant: 'Nadia F.', amount: 250, type: 'payment' },
-  { id: 4, time: '2026-04-20 16:00', action: 'Recorded payment', pardna: 'Sisters Circle', participant: 'Abena M.', amount: 150, type: 'payment' },
-  { id: 5, time: '2026-04-20 16:00', action: 'Recorded payment', pardna: 'Market Traders', participant: 'Patrick L.', amount: 300, type: 'payment' },
-  { id: 6, time: '2026-04-20 16:00', action: 'Recorded payment', pardna: 'Back to School', participant: 'Lisa A.', amount: 100, type: 'payment' },
-  { id: 7, time: '2026-04-19 14:30', action: 'Recorded payout', pardna: 'Family Monthly', participant: 'David K.', amount: 1600, type: 'payout' },
-  { id: 8, time: '2026-04-18 11:00', action: 'Collection day', pardna: 'Family Monthly', amount: 1600, type: 'collection' },
-  { id: 9, time: '2026-04-17 09:45', action: 'Marked payment overdue', pardna: 'Work Friends Savings', participant: 'Kwame B.', type: 'status' },
-  { id: 10, time: '2026-04-16 17:20', action: 'Cycle completed', pardna: 'Church Building Fund', type: 'lifecycle' },
+  { id: 1, time: '2026-05-05 16:00', action: 'Recorded payment', pardna: 'Family Monthly', participant: 'Ama O.', amount: 200, type: 'payment' },
+  { id: 2, time: '2026-05-05 16:00', action: 'Recorded payment', pardna: 'Work Friends Savings', participant: 'Lisa A.', amount: 100, type: 'payment' },
+  { id: 3, time: '2026-05-05 16:00', action: 'Recorded payment', pardna: 'Church Building Fund', participant: 'Nadia F.', amount: 250, type: 'payment' },
+  { id: 4, time: '2026-05-05 16:00', action: 'Recorded payment', pardna: 'Sisters Circle', participant: 'Abena M.', amount: 150, type: 'payment' },
+  { id: 5, time: '2026-05-05 16:00', action: 'Recorded payment', pardna: 'Market Traders', participant: 'Patrick L.', amount: 300, type: 'payment' },
+  { id: 6, time: '2026-05-05 16:00', action: 'Recorded payment', pardna: 'Back to School', participant: 'Lisa A.', amount: 100, type: 'payment' },
+  { id: 7, time: '2026-05-04 14:30', action: 'Recorded payout', pardna: 'Family Monthly', participant: 'David K.', amount: 1600, type: 'payout' },
+  { id: 8, time: '2026-05-03 11:00', action: 'Collection day', pardna: 'Family Monthly', amount: 1600, type: 'collection' },
+  { id: 9, time: '2026-05-02 09:45', action: 'Marked payment overdue', pardna: 'Work Friends Savings', participant: 'Kwame B.', type: 'status' },
+  { id: 10, time: '2026-05-01 17:20', action: 'Cycle completed', pardna: 'Church Building Fund', type: 'lifecycle' },
 ];
 
 const typeMeta: Record<LogType, { label: string; cls: string; icon: string }> = {

@@ -155,7 +155,7 @@ export default function HomePage() {
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-semibold text-[var(--color-dark)]">Recent Activity</h3>
             <button
-              onClick={() => navigate('/dashboard/diary')}
+              onClick={() => navigate('/dashboard/audit')}
               className="text-xs font-semibold text-[#E57432] hover:text-[#c5612a] transition-colors cursor-pointer bg-transparent border-none"
             >
               View all
@@ -214,7 +214,7 @@ export default function HomePage() {
             <div
               key={p.id}
               className="bg-white rounded-xl border border-gray-100 p-4 hover:border-orange-200 transition-all cursor-pointer group"
-              onClick={() => navigate('/dashboard/pardnas')}
+              onClick={() => navigate(`/dashboard/pardnas/${p.id}`)}
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">

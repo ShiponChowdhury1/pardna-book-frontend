@@ -33,6 +33,8 @@ import NotificationsPage   from '@/features/dashboard/pages/notifications';
 import ProfilePage         from '@/features/dashboard/pages/profile';
 import GuidePage           from '@/features/dashboard/pages/guide';
 import NewPardnaPage       from '@/features/dashboard/pages/new-pardna';
+import DashboardAuditPage  from '@/features/dashboard/pages/audit';
+import PardnaDetailPage    from '@/features/dashboard/pages/pardna-detail';
 
 
 export const router = createBrowserRouter([
@@ -142,8 +144,16 @@ export const router = createBrowserRouter([
         element: <GuidePage />,
       },
       {
+        path: 'audit',
+        element: <DashboardAuditPage />,
+      },
+      {
         path: 'pardnas/new',
         element: <NewPardnaPage />,
+      },
+      {
+        path: 'pardnas/:id',
+        element: <PardnaDetailPage />,
       },
     ],
   },

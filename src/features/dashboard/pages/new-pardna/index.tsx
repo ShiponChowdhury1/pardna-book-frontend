@@ -5,7 +5,8 @@ import type { NewPardnaFormData, StepIndex } from './types';
 import StepBasics from './steps/StepBasics';
 import StepRules from './steps/StepRules';
 import StepParticipants from './steps/StepParticipants';
-import StepReview from './steps/StepReview';
+import StepPayout from './steps/StepPayout';
+import StepSummary from './steps/StepReview';
 import StepDone from './steps/StepDone';
 
 export default function NewPardnaPage() {
@@ -16,14 +17,16 @@ export default function NewPardnaPage() {
   const update = (partial: Partial<NewPardnaFormData>) =>
     setForm((prev) => ({ ...prev, ...partial }));
 
-  const next = () => setStep((s) => Math.min(s + 1, 4) as StepIndex);
+  const next = () => setStep((s) => Math.min(s + 1, 5) as StepIndex);
   const back = () => setStep((s) => Math.max(s - 1, 0) as StepIndex);
 
   const handleCreate = () => {
-    next(); // go to Done
+    // TODO: Call API to create pardna
+    next(); // go to Done step (5)
   };
 
-  const isDone = step === 4;
+  const isDone = step === 5;
+  const isSummary = step === 4;
 
   return (
     <div className="space-y-0 animate-fade-in pb-24">
@@ -51,7 +54,7 @@ export default function NewPardnaPage() {
           return (
             <div key={label} className="flex-1 flex flex-col">
               <span
-                className="text-sm pb-2 px-1 transition-colors"
+                className="text-xs pb-2 px-0.5 transition-colors text-center"
                 style={{
                   color: isActive ? 'var(--color-dark)' : isPast ? '#E57432' : '#94A3B8',
                   fontWeight: isActive ? 700 : 500,
@@ -76,8 +79,9 @@ export default function NewPardnaPage() {
         {step === 0 && <StepBasics data={form} onChange={update} />}
         {step === 1 && <StepRules data={form} onChange={update} />}
         {step === 2 && <StepParticipants data={form} onChange={update} />}
-        {step === 3 && <StepReview data={form} onChange={update} />}
-        {step === 4 && (
+        {step === 3 && <StepPayout data={form} onChange={update} />}
+        {step === 4 && <StepSummary data={form} onChange={update} />}
+        {step === 5 && (
           <StepDone
             data={form}
             onGoHome={() => navigate('/dashboard')}
@@ -85,7 +89,7 @@ export default function NewPardnaPage() {
         )}
       </div>
 
-      {/* Bottom navigation: Back + Continue / Create */}
+      {/* Bottom navigation: Back + Continue / Create & Confirm */}
       {!isDone && (
         <div className="grid grid-cols-2 gap-3">
           <button
@@ -96,21 +100,21 @@ export default function NewPardnaPage() {
             ← Back
           </button>
 
-          {step < 3 ? (
+          {isSummary ? (
+            <button
+              onClick={handleCreate}
+              className="py-3.5 rounded-xl text-white text-sm font-semibold cursor-pointer border-none transition-opacity hover:opacity-90"
+              style={{ background: '#E57432' }}
+            >
+              Create & Confirm
+            </button>
+          ) : (
             <button
               onClick={next}
               className="py-3.5 rounded-xl text-white text-sm font-semibold cursor-pointer border-none transition-opacity hover:opacity-90"
               style={{ background: 'linear-gradient(135deg, #E57432 0%, #F4A261 100%)' }}
             >
               Continue →
-            </button>
-          ) : (
-            <button
-              onClick={handleCreate}
-              className="py-3.5 rounded-xl text-white text-sm font-semibold cursor-pointer border-none transition-opacity hover:opacity-90"
-              style={{ background: '#E57432' }}
-            >
-              Create Pardna
             </button>
           )}
         </div>

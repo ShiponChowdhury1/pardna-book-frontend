@@ -64,10 +64,11 @@ interface VerifyOtpResponseData {
   token?: string;
 }
 
-/** Refresh response */
+/** Refresh response — returns new token + refreshToken + user */
 interface RefreshResponseData {
   token: string;
-  user?: AuthUser;
+  refreshToken: string;
+  user: AuthUser;
 }
 
 /* ── Auth API ── */
@@ -128,10 +129,10 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
 
-    // POST /auth/refresh — HttpOnly cookie sent automatically
+    // POST /auth/refresh-token
     refresh: builder.mutation<ApiResponse<RefreshResponseData>, void>({
       query: () => ({
-        url: '/auth/refresh',
+        url: '/auth/refresh-token',
         method: 'POST',
       }),
     }),

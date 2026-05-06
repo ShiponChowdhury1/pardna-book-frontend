@@ -6,7 +6,7 @@ import {
   type FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
 import type { RootState } from '../index';
-import { setAccessToken, logout } from '../features/auth/authSlice';
+import { setCredentials, logout, type AuthUser } from '../features/auth/authSlice';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:5000/api';
 
@@ -35,18 +35,26 @@ const baseQueryWithReauth: BaseQueryFn<
   let result = await rawBaseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {
-    // Try to get a new accessToken via the refresh endpoint
+    // Try to get a new accessToken via the refresh-token endpoint
     const refreshResult = await rawBaseQuery(
-      { url: '/auth/refresh', method: 'POST' },
+      { url: '/auth/refresh-token', method: 'POST' },
       api,
       extraOptions,
     );
 
     if (refreshResult.data) {
-      const res = refreshResult.data as { success: boolean; data: { token: string } };
+      const res = refreshResult.data as {
+        success: boolean;
+        data: { token: string; refreshToken: string; user: AuthUser };
+      };
       if (res.success && res.data?.token) {
-        // Store new accessToken in Redux memory
-        api.dispatch(setAccessToken(res.data.token));
+        // Store new accessToken + user in Redux memory
+        api.dispatch(
+          setCredentials({
+            accessToken: res.data.token,
+            user: res.data.user,
+          }),
+        );
         // Retry the original request with the new token
         result = await rawBaseQuery(args, api, extraOptions);
       } else {

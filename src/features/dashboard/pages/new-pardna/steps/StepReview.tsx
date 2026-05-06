@@ -1,60 +1,56 @@
 import type { NewPardnaFormData } from '../types';
+import { DEMO_FORM } from '../types';
 
 interface Props {
   data: NewPardnaFormData;
   onChange: (d: Partial<NewPardnaFormData>) => void;
 }
 
-function formatDate(dateStr: string, weeksOffset: number): string {
-  if (!dateStr) return '—';
-  const d = new Date(dateStr);
-  d.setDate(d.getDate() + weeksOffset * 7);
-  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
-}
-
-function frequencyWeeks(freq: string): number {
-  if (freq === 'Weekly') return 1;
-  if (freq === 'Fortnightly') return 2;
-  return 4; // Monthly
-}
-
-export default function StepReview({ data, onChange }: Props) {
-  const numParticipants = data.participants.filter((p) => p.name.trim()).length || 1;
+export default function StepSummary({ data, onChange }: Props) {
+  const numParticipants = data.participants.filter((p) => p.name.trim()).length || Number(data.numberOfParticipants) || 0;
   const contribution = Number(data.contributionAmount) || 0;
   const totalPot = contribution * numParticipants;
-  const weeks = frequencyWeeks(data.frequency);
 
-  const moveParticipant = (index: number, direction: 'up' | 'down') => {
-    const arr = [...data.participants];
-    const target = direction === 'up' ? index - 1 : index + 1;
-    if (target < 0 || target >= arr.length) return;
-    [arr[index], arr[target]] = [arr[target], arr[index]];
-    onChange({ participants: arr });
+  const handleDemo = () => {
+    onChange({ ...DEMO_FORM });
   };
 
   return (
     <div className="space-y-5 animate-fade-in">
+      {/* Demo version button */}
+      <button
+        type="button"
+        onClick={handleDemo}
+        className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium cursor-pointer transition-all hover:shadow-sm"
+        style={{ background: '#FFF7ED', border: '1px solid #FDDCB5', color: '#E57432' }}
+      >
+        <div className="flex items-center gap-2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
+          </svg>
+          <span className="font-semibold">Demo version</span>
+        </div>
+        <span className="text-xs text-[#B45309]">Autofill every field with example details.</span>
+      </button>
+
       {/* Title */}
       <div>
         <h2 className="text-xl font-bold text-[var(--color-dark)]" style={{ fontFamily: 'var(--font-heading)' }}>
-          Review before saving
+          Summary
         </h2>
         <p className="text-xs text-[#64748B] mt-1">
-          Double-check your contribution, schedule, and payout order. You can go back to edit anything.
+          Review everything before creating. You can still go back to edit any step.
         </p>
       </div>
 
-      {/* Pardna summary card */}
+      {/* Summary card */}
       <section className="border border-gray-200 rounded-2xl p-5 space-y-4">
-        {/* Pardna name & description */}
-        <div>
-          <h3 className="text-base font-bold text-[var(--color-dark)]">{data.name || 'Untitled Pardna'}</h3>
-          {data.description && <p className="text-xs text-[#64748B] mt-0.5">{data.description}</p>}
-        </div>
+        {/* Pardna name */}
+        <h3 className="text-base font-bold text-[var(--color-dark)]">{data.name || 'Untitled pardna'}</h3>
 
         {/* Total pot per round */}
         <div className="rounded-xl p-4" style={{ background: '#FFF7ED' }}>
-          <p className="text-[10px] font-bold tracking-wider text-[#E57432] mb-1">TOTAL POT PER ROUND</p>
+          <p className="text-[10px] font-bold tracking-wider text-[#E57432] mb-1">Total pot per round</p>
           <p className="text-3xl font-bold text-[var(--color-dark)]" style={{ fontFamily: 'var(--font-heading)' }}>
             £{totalPot.toLocaleString()}
           </p>
@@ -73,7 +69,7 @@ export default function StepReview({ data, onChange }: Props) {
             </span>
             <div>
               <p className="text-[10px] font-bold tracking-wider text-[#64748B]">CONTRIBUTION</p>
-              <p className="text-base font-bold text-[var(--color-dark)]">£{contribution}</p>
+              <p className="text-base font-bold text-[var(--color-dark)]">£{contribution || '—'}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -108,72 +104,12 @@ export default function StepReview({ data, onChange }: Props) {
             <div>
               <p className="text-[10px] font-bold tracking-wider text-[#64748B]">STARTS</p>
               <p className="text-base font-bold text-[var(--color-dark)]">
-                {data.startDate ? new Date(data.startDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: '2-digit' }) : '—'}
+                {data.startDate
+                  ? new Date(data.startDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: '2-digit' })
+                  : 'Not set'}
               </p>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Payout schedule */}
-      <section className="border border-gray-200 rounded-2xl p-5 space-y-4">
-        <div className="flex items-center gap-2">
-          <span className="text-[#E57432]">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M3 6h18M3 12h18M3 18h18" />
-            </svg>
-          </span>
-          <h3 className="text-base font-bold text-[var(--color-dark)]" style={{ fontFamily: 'var(--font-heading)' }}>
-            Payout schedule
-          </h3>
-        </div>
-        <p className="text-xs text-[#64748B]">
-          One payout per round. Use the arrows to fine-tune the order before saving.
-        </p>
-
-        <div className="space-y-0">
-          {data.participants.filter((p) => p.name.trim()).map((p, i) => (
-            <div key={p.id} className="flex items-center justify-between py-3 border-b border-gray-100 last:border-0">
-              <div className="flex items-center gap-3">
-                <span
-                  className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white shrink-0"
-                  style={{ background: '#E57432' }}
-                >
-                  {i + 1}
-                </span>
-                <div>
-                  <p className="text-sm font-semibold text-[var(--color-dark)]">{p.name}</p>
-                  <p className="text-xs text-[#64748B]">
-                    Round {i + 1} – {formatDate(data.startDate, i * weeks)}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-bold text-[var(--color-dark)]">£{totalPot.toLocaleString()}</span>
-                {/* Reorder arrows */}
-                <div className="flex flex-col">
-                  <button
-                    onClick={() => moveParticipant(i, 'up')}
-                    disabled={i === 0}
-                    className="text-[#94A3B8] hover:text-[#E57432] cursor-pointer bg-transparent border-none p-0 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                  >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M18 15l-6-6-6 6" />
-                    </svg>
-                  </button>
-                  <button
-                    onClick={() => moveParticipant(i, 'down')}
-                    disabled={i === data.participants.filter((pp) => pp.name.trim()).length - 1}
-                    className="text-[#94A3B8] hover:text-[#E57432] cursor-pointer bg-transparent border-none p-0 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                  >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M6 9l6 6 6-6" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 
@@ -185,7 +121,7 @@ export default function StepReview({ data, onChange }: Props) {
           </svg>
         </span>
         <p className="text-xs text-[#64748B] leading-relaxed">
-          Once you save, the pardna and its payout rounds are created. You can still edit details from the pardna overview.
+          Once you confirm, the pardna and its payout rounds are created. You can still edit details from the pardna overview.
         </p>
       </div>
     </div>

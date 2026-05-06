@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, CheckCircle2 } from 'lucide-react';
 import Button from '@/components/ui/Button';
-import loginImage from '@/assets/login.png';
 
 const trustPoints = [
   'No money handling — records only',
@@ -62,15 +61,10 @@ export default function RegisterPage() {
 
   return (
     <div className="w-full">
-      {/* Mobile illustration — hidden on lg+ where AuthLayout shows it */}
-      <div className="lg:hidden flex justify-center mb-6">
-        <img src={loginImage} alt="PardnaBook" className="w-36 h-36 sm:w-44 sm:h-44 object-contain" />
-      </div>
-
       {/* Header */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-6">
         <h1
-          className="text-3xl sm:text-4xl font-bold text-[var(--color-dark)] mb-2 leading-tight"
+          className="text-2xl sm:text-3xl font-bold text-[var(--color-dark)] mb-2 leading-tight"
           style={{ fontFamily: 'var(--font-heading)' }}
         >
           Create your banker account
@@ -80,14 +74,15 @@ export default function RegisterPage() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} noValidate>
-        <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-[var(--shadow-lg)] border border-gray-100 space-y-4">
+      {/* Card */}
+      <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-[var(--shadow-lg)] border border-gray-100">
+        <form onSubmit={handleSubmit} noValidate className="space-y-4">
           {/* First + Last Name */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label
                 htmlFor="first-name"
-                className="block text-sm font-semibold text-[var(--color-dark)] mb-6"
+                className="block text-sm font-semibold text-[var(--color-dark)] mb-2"
               >
                 First name
               </label>
@@ -106,7 +101,7 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="last-name"
-                className="block text-sm font-semibold text-[var(--color-dark)] mb-6"
+                className="block text-sm font-semibold text-[var(--color-dark)] mb-2"
               >
                 Last name
               </label>
@@ -128,26 +123,32 @@ export default function RegisterPage() {
           <div>
             <label
               htmlFor="username"
-              className="block text-sm font-semibold text-[var(--color-dark)] mb-6"
+              className="block text-sm font-semibold text-[var(--color-dark)] mb-2"
             >
               Username{' '}
-              <span className="text-[var(--color-primary)] font-normal text-xs">(optional)</span>
+              <span className="text-[var(--color-gray-400)] font-normal text-xs">(optional)</span>
             </label>
-            <input
-              id="username"
-              type="text"
-              placeholder="e.g. banker_jay"
-              value={form.username}
-              onChange={(e) => set('username', e.target.value)}
-              className={inputClass}
-            />
+            <div className="relative">
+              <input
+                id="username"
+                type="text"
+                placeholder="e.g. banker_jay"
+                value={form.username}
+                onChange={(e) => set('username', e.target.value)}
+                className={`${inputClass} pr-28`}
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[var(--color-gray-400)]">
+                @PardnaBook
+              </span>
+            </div>
+            <p className="mt-1 text-xs text-[var(--color-gray-400)]">This will be your displayed name</p>
           </div>
 
           {/* Email */}
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-semibold text-[var(--color-dark)] mb-6"
+              className="block text-sm font-semibold text-[var(--color-dark)] mb-2"
             >
               Email
             </label>
@@ -168,7 +169,7 @@ export default function RegisterPage() {
           <div>
             <label
               htmlFor="phone"
-              className="block text-sm font-semibold text-[var(--color-dark)] mb-6"
+              className="block text-sm font-semibold text-[var(--color-dark)] mb-2"
             >
               Phone number
             </label>
@@ -189,7 +190,7 @@ export default function RegisterPage() {
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-semibold text-[var(--color-dark)] mb-6"
+              className="block text-sm font-semibold text-[var(--color-dark)] mb-2"
             >
               Password
             </label>
@@ -256,7 +257,7 @@ export default function RegisterPage() {
           </div>
 
           {/* Submit */}
-          <div className="pt-2">
+          <div className="pt-1">
             <Button
               type="submit"
               fullWidth
@@ -269,7 +270,7 @@ export default function RegisterPage() {
           </div>
 
           {/* Trust badges */}
-          <div className="pt-6 space-y-2 border-t border-gray-100">
+          <div className="pt-4 space-y-2 border-t border-gray-100">
             {trustPoints.map((point) => (
               <div key={point} className="flex items-center gap-2.5">
                 <CheckCircle2 size={16} className="text-[var(--color-success,#10B981)] shrink-0" />
@@ -277,8 +278,8 @@ export default function RegisterPage() {
               </div>
             ))}
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
 
       {/* Login link */}
       <p className="text-center text-sm text-[var(--color-gray-400)] mt-6">

@@ -11,6 +11,9 @@ import AuthLayout from '@/components/layout/AuthLayout';
 import LoginPage from '@/features/auth/LoginPage';
 import RegisterPage from '@/features/auth/RegisterPage';
 import VerifyOtpPage from '@/features/auth/VerifyOtpPage';
+import ForgotPasswordPage from '@/features/auth/ForgotPasswordPage';
+import CheckInboxPage from '@/features/auth/CheckInboxPage';
+import NewPasswordPage from '@/features/auth/NewPasswordPage';
 
 // Admin
 import AdminLayout from '@/features/admin/AdminLayout';
@@ -66,6 +69,18 @@ export const router = createBrowserRouter([
       {
         path: 'verify-otp',
         element: <VerifyOtpPage />,
+      },
+      {
+        path: 'forgot-password',
+        element: <ForgotPasswordPage />,
+      },
+      {
+        path: 'check-inbox',
+        element: <CheckInboxPage />,
+      },
+      {
+        path: 'new-password',
+        element: <NewPasswordPage />,
       },
     ],
   },

@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import Button from '@/components/ui/Button';
-import loginImage from '@/assets/login.png';
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{ identifier?: string; password?: string }>({});
 
@@ -36,22 +36,12 @@ export default function LoginPage() {
   const inputClass =
     'w-full px-4 py-3.5 rounded-xl border border-[var(--color-gray-200)] bg-white text-[var(--color-dark)] placeholder:text-[var(--color-gray-400)] text-sm transition-all duration-200 focus:outline-none focus:border-[var(--color-primary)] hover:border-[var(--color-gray-300)]';
 
-
   return (
     <div className="w-full">
-      {/* Mobile illustration — hidden on lg+ where AuthLayout shows it */}
-      <div className="lg:hidden flex justify-center mb-6">
-        <img
-          src={loginImage}
-          alt="PardnaBook"
-          className="w-36 h-36 sm:w-44 sm:h-44 object-contain"
-        />
-      </div>
-
       {/* Header */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-6">
         <h1
-          className="text-3xl sm:text-4xl font-bold text-[var(--color-dark)] mb-2 leading-tight"
+          className="text-2xl sm:text-3xl font-bold text-[var(--color-dark)] mb-2 leading-tight"
           style={{ fontFamily: 'var(--font-heading)' }}
         >
           Welcome back
@@ -61,14 +51,14 @@ export default function LoginPage() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} noValidate>
-        <div className="bg-white rounded-2xl p-4 sm:p-4 shadow-[var(--shadow-lg)] border border-gray-100 space-y-4">
-
+      {/* Card */}
+      <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-[var(--shadow-lg)] border border-gray-100">
+        <form onSubmit={handleSubmit} noValidate className="space-y-5">
           {/* Email or phone */}
           <div>
             <label
               htmlFor="login-identifier"
-              className="block text-sm font-semibold text-[var(--color-dark)] mb-3"
+              className="block text-sm font-semibold text-[var(--color-dark)] mb-2"
             >
               Email or phone
             </label>
@@ -88,8 +78,8 @@ export default function LoginPage() {
 
           {/* Password */}
           <div>
-            <div className="flex items-center justify-between mb-6">
-              <label 
+            <div className="flex items-center justify-between mb-2">
+              <label
                 htmlFor="login-password"
                 className="text-sm font-semibold text-[var(--color-dark)]"
               >
@@ -97,20 +87,20 @@ export default function LoginPage() {
               </label>
               <Link
                 to="/auth/forgot-password"
-                className="text-xs font-medium text-[var(--color-primary)] hover:underline no-underline opacity-80"
+                className="text-xs font-medium text-[var(--color-primary)] hover:underline no-underline"
               >
                 Forgot password?
               </Link>
             </div>
             <div className="relative">
               <input
-               id="login-password"
-               type={showPassword ? 'text' : 'password'}
-               autoComplete="current-password"
-               placeholder="••••••••"
-               value={password}
-               onChange={(e) => setPassword(e.target.value)}
-               className={`${inputClass} pr-12 ${errors.password ? 'border-[var(--color-error)]' : ''}`}
+                id="login-password"
+                type={showPassword ? 'text' : 'password'}
+                autoComplete="current-password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className={`${inputClass} pr-12 ${errors.password ? 'border-[var(--color-error)]' : ''}`}
               />
               <button
                 type="button"
@@ -126,18 +116,58 @@ export default function LoginPage() {
             )}
           </div>
 
+          {/* Remember me */}
+          <label className="flex items-center gap-2 cursor-pointer select-none">
+            <div className="relative shrink-0">
+              <input type="checkbox" className="sr-only" />
+              <div
+                onClick={() => setRememberMe(!rememberMe)}
+                className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-all duration-200 cursor-pointer ${
+                  rememberMe
+                    ? 'bg-[var(--color-primary)] border-[var(--color-primary)]'
+                    : 'border-[var(--color-gray-300)] bg-white hover:border-[var(--color-primary)]'
+                }`}
+              >
+                {rememberMe && (
+                  <svg width="9" height="7" viewBox="0 0 11 9" fill="none">
+                    <path d="M1 4l3 3 6-6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+              </div>
+            </div>
+            <span className="text-xs text-[var(--color-gray-500)]">Remember me on this device</span>
+          </label>
+
           {/* Submit */}
           <Button
             type="submit"
             fullWidth
             size="lg"
             loading={isLoading}
-            className="rounded-xl mt-1"
+            className="rounded-xl"
           >
             Log in
           </Button>
-        </div>
-      </form>
+
+          {/* Divider */}
+          <div className="flex items-center gap-4">
+            <div className="flex-1 h-px bg-gray-200" />
+            <span className="text-xs text-[var(--color-gray-400)] font-medium">OR</span>
+            <div className="flex-1 h-px bg-gray-200" />
+          </div>
+
+          {/* Enter as Admin */}
+          <Link
+            to="/admin"
+            className="flex items-center justify-center gap-2 w-full px-6 py-3.5 text-sm font-semibold text-[var(--color-dark)] bg-white border border-[var(--color-gray-200)] rounded-xl hover:bg-[var(--color-gray-100)] hover:border-[var(--color-gray-300)] transition-all no-underline"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            Enter as Admin
+          </Link>
+        </form>
+      </div>
 
       {/* Sign up link */}
       <p className="text-center text-sm text-[var(--color-gray-400)] mt-6">

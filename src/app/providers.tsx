@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react';
+import { Provider } from 'react-redux';
+import { store } from '@/store';
 
 interface ProvidersProps {
   children: ReactNode;
@@ -6,8 +8,12 @@ interface ProvidersProps {
 
 /**
  * Global providers wrapper.
- * Add React Query, theme, or auth providers here as needed.
+ * Redux store + any future providers go here.
  */
 export default function Providers({ children }: ProvidersProps) {
-  return <>{children}</>;
+  return (
+    <Provider store={store}>
+      {children}
+    </Provider>
+  );
 }

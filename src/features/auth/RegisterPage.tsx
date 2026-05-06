@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, CheckCircle2 } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import { useSignupBankerMutation } from '@/store/features/auth/authApi';
 
 const trustPoints = [
   'No money handling — records only',
@@ -11,6 +12,7 @@ const trustPoints = [
 
 export default function RegisterPage() {
   const navigate = useNavigate();
+  const [signupBanker] = useSignupBankerMutation();
 
   const [form, setForm] = useState({
     firstName: '',
@@ -24,6 +26,7 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState('');
 
   const set = (field: string, value: string | boolean) =>
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -50,10 +53,32 @@ export default function RegisterPage() {
       return;
     }
     setErrors({});
+    setApiError('');
     setIsLoading(true);
-    await new Promise((r) => setTimeout(r, 900));
-    setIsLoading(false);
-    navigate('/auth/verify-otp', { state: { phone: form.phone } });
+
+    try {
+      const result = await signupBanker({
+        firstName: form.firstName,
+        lastName: form.lastName,
+        username: form.username,
+        email: form.email,
+        phoneNumber: form.phone,
+        password: form.password,
+      }).unwrap();
+
+      if (result.success) {
+        // Signup successful → go to OTP verification
+        navigate('/auth/verify-otp', {
+          state: { email: form.email, flow: 'register' },
+        });
+      }
+    } catch (err: any) {
+      const msg =
+        err?.data?.message || err?.message || 'Signup failed. Please try again.';
+      setApiError(msg);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const inputClass =
@@ -76,6 +101,13 @@ export default function RegisterPage() {
 
       {/* Card */}
       <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-[var(--shadow-lg)] border border-gray-100">
+        {/* API Error */}
+        {apiError && (
+          <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-sm text-red-600">
+            {apiError}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} noValidate className="space-y-4">
           {/* First + Last Name */}
           <div className="grid grid-cols-2 gap-4">
@@ -221,17 +253,14 @@ export default function RegisterPage() {
           <div>
             <label className="flex items-start gap-3 cursor-pointer select-none">
               <div className="relative mt-0.5 shrink-0">
-                <input
-                  id="agreed"
-                  type="checkbox"
-                  className="sr-only"
-                />
+                <input id="agreed" type="checkbox" className="sr-only" />
                 <div
                   onClick={() => set('agreed', !form.agreed)}
-                  className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-200 cursor-pointer ${form.agreed
+                  className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-200 cursor-pointer ${
+                    form.agreed
                       ? 'bg-[var(--color-primary)] border-[var(--color-primary)]'
                       : 'border-[var(--color-gray-300)] bg-white hover:border-[var(--color-primary)]'
-                    }`}
+                  }`}
                 >
                   {form.agreed && (
                     <svg width="11" height="9" viewBox="0 0 11 9" fill="none">

@@ -2,15 +2,22 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import { useLoginMutation } from '@/store/features/auth/authApi';
+import { useAppDispatch } from '@/store';
+import { setCredentials } from '@/store/features/auth/authSlice';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const [login] = useLoginMutation();
+
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{ identifier?: string; password?: string }>({});
+  const [apiError, setApiError] = useState('');
 
   const validate = () => {
     const e: { identifier?: string; password?: string } = {};
@@ -27,10 +34,39 @@ export default function LoginPage() {
       return;
     }
     setErrors({});
+    setApiError('');
     setIsLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    setIsLoading(false);
-    navigate('/auth/verify-otp', { state: { phone: identifier } });
+
+    try {
+      const result = await login({
+        email: identifier,
+        password,
+      }).unwrap();
+
+      if (result.success && result.data) {
+        // Store token + user in Redux memory only
+        dispatch(
+          setCredentials({
+            user: result.data.user,
+            accessToken: result.data.token,
+          }),
+        );
+
+        // Redirect based on user role
+        const role = result.data.user.role?.toUpperCase();
+        if (role === 'ADMIN') {
+          navigate('/admin', { replace: true });
+        } else {
+          navigate('/dashboard', { replace: true });
+        }
+      }
+    } catch (err: any) {
+      const msg =
+        err?.data?.message || err?.message || 'Login failed. Please try again.';
+      setApiError(msg);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const inputClass =
@@ -53,6 +89,13 @@ export default function LoginPage() {
 
       {/* Card */}
       <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-[var(--shadow-lg)] border border-gray-100">
+        {/* API Error */}
+        {apiError && (
+          <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-sm text-red-600">
+            {apiError}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} noValidate className="space-y-5">
           {/* Email or phone */}
           <div>

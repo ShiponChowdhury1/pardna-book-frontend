@@ -2,11 +2,14 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, MessageSquare } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import { useForgotPasswordMutation } from '@/store/features/auth/authApi';
 
 type Method = 'email' | 'sms';
 
 export default function ForgotPasswordPage() {
   const navigate = useNavigate();
+  const [forgotPassword] = useForgotPasswordMutation();
+
   const [method, setMethod] = useState<Method>('email');
   const [value, setValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -22,10 +25,22 @@ export default function ForgotPasswordPage() {
     }
 
     setIsLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    setIsLoading(false);
 
-    navigate('/auth/verify-otp', { state: { phone: value, type: 'forgot-password' } });
+    try {
+      const result = await forgotPassword({ email: value }).unwrap();
+
+      if (result.success) {
+        // OTP sent → navigate to OTP verification for password reset
+        navigate('/auth/verify-otp', {
+          state: { email: value, flow: 'forgot-password' },
+        });
+      }
+    } catch (err: any) {
+      const msg = err?.data?.message || 'Failed to send reset code. Please try again.';
+      setError(msg);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const inputClass =

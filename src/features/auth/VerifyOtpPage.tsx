@@ -3,16 +3,23 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import OtpInput from '@/components/ui/OtpInput';
 import Button from '@/components/ui/Button';
 import { useCountdown } from '@/hooks/useCountdown';
+import { useVerifyOtpMutation, useResendOtpMutation } from '@/store/features/auth/authApi';
 
 export default function VerifyOtpPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { phone, type } = (location.state as { phone?: string; type?: string }) || {};
-  const displayPhone = phone || '+8801700000000';
-  const isForgotPassword = type === 'forgot-password';
+  const { email, flow } = (location.state as { email?: string; flow?: string }) || {};
+  const displayEmail = email || '';
+  const isForgotPassword = flow === 'forgot-password';
+
+  const [verifyOtp] = useVerifyOtpMutation();
+  const [resendOtp] = useResendOtpMutation();
+
   const [otp, setOtp] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isResending, setIsResending] = useState(false);
   const [error, setError] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
   const { display, isActive, restart } = useCountdown(120);
 
   const handleOtpComplete = (value: string) => {
@@ -22,6 +29,7 @@ export default function VerifyOtpPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setSuccessMsg('');
 
     if (otp.length !== 6) {
       setError('Please enter all 6 digits');
@@ -29,23 +37,53 @@ export default function VerifyOtpPage() {
     }
 
     setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1200));
 
-    if (otp === '123456') {
-      if (isForgotPassword) {
-        navigate('/auth/new-password', { replace: true });
-      } else {
-        navigate('/admin', { replace: true });
+    try {
+      const result = await verifyOtp({
+        email: displayEmail,
+        otp,
+        flow: isForgotPassword ? 'forgot-password' : 'register',
+      }).unwrap();
+
+      if (result.success) {
+        if (isForgotPassword) {
+          // Forgot password flow → OTP verify returns a reset token
+          const resetToken = result.data?.token || '';
+          navigate('/auth/new-password', {
+            replace: true,
+            state: { email: displayEmail, token: resetToken },
+          });
+        } else {
+          // Register flow → account verified → go to login
+          navigate('/auth/login', { replace: true });
+        }
       }
-    } else {
-      setError('Invalid OTP. Please try again.');
+    } catch (err: any) {
+      const msg = err?.data?.message || 'Invalid OTP. Please try again.';
+      setError(msg);
+    } finally {
       setIsLoading(false);
     }
   };
 
-  const handleResend = () => {
-    restart();
+  const handleResend = async () => {
+    if (!displayEmail) return;
     setError('');
+    setSuccessMsg('');
+    setIsResending(true);
+
+    try {
+      const result = await resendOtp({ email: displayEmail }).unwrap();
+      if (result.success) {
+        setSuccessMsg('OTP resent successfully!');
+        restart();
+      }
+    } catch (err: any) {
+      const msg = err?.data?.message || 'Failed to resend OTP.';
+      setError(msg);
+    } finally {
+      setIsResending(false);
+    }
   };
 
   return (
@@ -62,7 +100,7 @@ export default function VerifyOtpPage() {
           Enter the 6-digit code sent to
         </p>
         <p className="text-[var(--color-dark)] font-semibold text-sm mt-1">
-          {displayPhone}
+          {displayEmail}
         </p>
       </div>
 
@@ -77,6 +115,10 @@ export default function VerifyOtpPage() {
             <p className="text-sm text-[var(--color-error)] text-center mb-4">{error}</p>
           )}
 
+          {successMsg && (
+            <p className="text-sm text-[var(--color-success)] text-center mb-4">{successMsg}</p>
+          )}
+
           {/* Countdown / Resend */}
           <div className="text-center mb-6">
             {isActive ? (
@@ -87,9 +129,10 @@ export default function VerifyOtpPage() {
               <button
                 type="button"
                 onClick={handleResend}
-                className="text-sm font-medium text-[var(--color-primary)] hover:underline cursor-pointer bg-transparent border-none"
+                disabled={isResending}
+                className="text-sm font-medium text-[var(--color-primary)] hover:underline cursor-pointer bg-transparent border-none disabled:opacity-50"
               >
-                Resend OTP
+                {isResending ? 'Resending…' : 'Resend OTP'}
               </button>
             )}
           </div>
@@ -103,10 +146,6 @@ export default function VerifyOtpPage() {
           >
             Verify & Continue
           </Button>
-
-          <p className="text-xs text-center text-[var(--color-gray-400)] mt-5">
-            For demo: Use OTP <span className="font-bold text-[var(--color-dark)]">123456</span>
-          </p>
         </form>
       </div>
     </div>

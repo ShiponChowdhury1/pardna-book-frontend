@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Eye, EyeOff, CheckCircle2 } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import { useResetPasswordMutation } from '@/store/features/auth/authApi';
 
 const requirements = [
   { label: 'At least 8 characters', test: (pw: string) => pw.length >= 8 },
@@ -12,12 +13,19 @@ const requirements = [
 
 export default function NewPasswordPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [resetPassword] = useResetPasswordMutation();
+
+  // Reset token comes from OTP verify response (forgot-password flow)
+  const { token: resetToken, email } = (location.state as { token?: string; email?: string }) || {};
+
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{ password?: string; confirm?: string }>({});
+  const [apiError, setApiError] = useState('');
 
   const validate = () => {
     const e: { password?: string; confirm?: string } = {};
@@ -34,10 +42,24 @@ export default function NewPasswordPage() {
       return;
     }
     setErrors({});
+    setApiError('');
     setIsLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    setIsLoading(false);
-    navigate('/auth/login');
+
+    try {
+      const result = await resetPassword({
+        token: resetToken || '',
+        newPassword: password,
+      }).unwrap();
+
+      if (result.success) {
+        navigate('/auth/login', { replace: true });
+      }
+    } catch (err: any) {
+      const msg = err?.data?.message || 'Failed to reset password. Please try again.';
+      setApiError(msg);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const inputClass =
@@ -60,6 +82,13 @@ export default function NewPasswordPage() {
 
       {/* Card */}
       <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-[var(--shadow-lg)] border border-gray-100">
+        {/* API Error */}
+        {apiError && (
+          <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-sm text-red-600">
+            {apiError}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} noValidate className="space-y-5">
           {/* New Password */}
           <div>
